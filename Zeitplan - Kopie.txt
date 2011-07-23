@@ -1,0 +1,12 @@
+Zeitplan:
+
+2 x Woche -> 10 Std. -> 20 Std./Woche -> 160 Std.
+
+
+15% Konstruktion
+10% Fertigung
+50% Programmierung
+15% Elektronik
+10% Sonstiges
+
+
