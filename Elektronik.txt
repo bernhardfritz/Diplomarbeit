@@ -1,0 +1,9 @@
+Elektronik:
+
+Sensoren und Co.:
+
+Temperatursensor(Wasser + Luft)
+Wasserstandsensor
+Nährstoffgehaltsensor
+Lichtintensität
+Webcam

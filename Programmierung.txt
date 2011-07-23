@@ -1,0 +1,5 @@
+Programmierung:
+
+Festlegen der Programmiersprache(Java, PHP,...)
+Ansprechen des Microcontrollers über PC
+Recherche bei Hilpold
