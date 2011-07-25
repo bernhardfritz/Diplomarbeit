@@ -8,5 +8,10 @@ Fertigung:
 Fräsen/Drehen
 Montage(Verschrauben der ITEM-Profile)
 
-Auswerfen der Nahrung muss gut geplant werden um alle Fische zu befriedigen
-Futterverteilung über das ganze Aquarium erfolgen
+Auswerfen der Nahrung muss gut geplant werden, um alle Fische zu befriedigen
+muß Futterverteilung über das ganze Aquarium erfolgen
+
+* wird das nicht durch die Strömung verteilt ?
+* gibt es Futter das besser unter der Wasseroberfläche eingebracht werden soll ?
+* Lebendfutter ?
+
