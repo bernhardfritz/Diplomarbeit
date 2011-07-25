@@ -1,12 +1,22 @@
-Zeitplan:
+Aufwandsabschätzung
+-------------------
 
 2 x Woche -> 10 Std. -> 20 Std./Woche -> 160 Std.
 
+==== ======================
+ 15% Konstruktion
+ 10% Fertigung
+ 50% Programmierung
+ 15% Elektronik
+ 10% Sonstiges
+==== ======================
 
-15% Konstruktion
-10% Fertigung
-50% Programmierung
-15% Elektronik
-10% Sonstiges
+Zeitplan
+--------
 
+2011-07 ...
+
+2011-08 ...
+
+soweit es eben ist
 
