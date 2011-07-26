@@ -1,5 +1,13 @@
-Programmierung:
+Programmierung
+--------------
 
 Festlegen der Programmiersprache(Java, PHP,...)
+
 Ansprechen des Microcontrollers über PC
+
 Recherche bei Hilpold
+
+  wetter.htlinn.ac.at verwendet netio von pollin.de
+
+  dieses kann über tcp angesprochen werden 
+  oder man tauscht die Firmware gegen ethersex aus.
