@@ -13,12 +13,9 @@ Suchbegriff:<input type="text" name="suchbegriff"/><br/>
 <table border="1">
 <th>Wassertemperatur</th>
 <th>Lufttemperatur</th>
-<th>Aquariumbreite</th>
-<th>Aquariumlänge</th>
 <th>Wasserstand</th>
-<th>Volumen</th>
-<th>Nährstoffgehalt</th>
-<th>Lichtintensität</th>
+<th>Uhrzeit</th>
+<th>Datum</th>
 <%
 List<Daten> erg=(List<Daten>)session.getAttribute("erg");
 if(erg!=null)
@@ -27,13 +24,10 @@ if(erg!=null)
 	{
 		out.println("<tr><td>"+d.getWtemp()+
 				"</td><td>"+d.getLtemp()+
-				"</td><td>"+d.getBreite()+
-				"</td><td>"+d.getLaenge()+
 				"</td><td>"+d.getWasserstand()+
-				"</td><td>"+d.getVolumen()+
-				"</td><td>"+d.getNaehrstoffgehalt()+
-				"</td><td>"+d.getLichtintensitaet()+
-				"</td></tr>");				
+				"</td><td>"+d.getUhrzeit()+
+				"</td><td>"+d.getDatum()+
+				"</td></tr>");	
 	}
 }
 %>

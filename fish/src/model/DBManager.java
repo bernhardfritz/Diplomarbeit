@@ -26,15 +26,12 @@ public Connection con;
 	
 	public void speichern(Daten d) throws SQLException
 	{
-		String sql="INSERT INTO daten(wtemp,ltemp,breite,laenge,wasserstand,volumen,naehrstoffgehalt,lichtintensitaet) VALUES(" +
+		String sql="INSERT INTO daten(wtemp,ltemp,wasserstand,uhrzeit,datum) VALUES(" +
 				"'"+d.getWtemp()+"',"+
 				"'"+d.getLtemp()+"',"+
-				"'"+d.getBreite()+"',"+
-				"'"+d.getLaenge()+"',"+
 				"'"+d.getWasserstand()+"',"+
-				"'"+d.getVolumen()+"',"+
-				"'"+d.getNaehrstoffgehalt()+"',"+
-				"'"+d.getLichtintensitaet()+"')";
+				"'"+d.getUhrzeit()+"',"+
+				"'"+d.getDatum()+"')";
 		Statement stmt=(Statement) con.createStatement();
 		stmt.executeUpdate(sql);
 		stmt.close();
@@ -46,24 +43,18 @@ public Connection con;
 		Statement stmt=(Statement) con.createStatement();
 		String sql="SELECT * FROM daten WHERE wtemp LIKE '%"+s+"%' OR " +
 				"ltemp LIKE '%"+s+"%' OR "+
-				"breite LIKE '%"+s+"%' OR "+
-				"laenge LIKE '%"+s+"%' OR "+
 				"wasserstand LIKE '%"+s+"%' OR "+
-				"volumen LIKE '%"+s+"%' OR "+
-				"naehrstoffgehalt LIKE '%"+s+"%' OR "+
-				"lichtintensitaet LIKE '%"+s+"%'";
+				"uhrzeit LIKE '%"+s+"%' OR "+
+				"datum LIKE '%"+s+"%'";
 		ResultSet rs=stmt.executeQuery(sql);
 		while(rs.next())
 		{
 			String wtemp=rs.getString("wtemp");
 			String ltemp=rs.getString("ltemp");
-			String breite=rs.getString("breite");
-			String laenge=rs.getString("laenge");
 			String wasserstand=rs.getString("wasserstand");
-			String volumen=rs.getString("volumen");
-			String naehrstoffgehalt=rs.getString("naehrstoffgehalt");
-			String lichtintensitaet=rs.getString("lichtintensitaet");
-			Daten d=new Daten(wtemp,ltemp,breite,laenge,wasserstand,volumen,naehrstoffgehalt,lichtintensitaet);
+			String uhrzeit=rs.getString("uhrzeit");
+			String datum=rs.getString("datum");
+			Daten d=new Daten(wtemp,ltemp,wasserstand,uhrzeit,datum);
 			erg.add(d);
 		}
 		rs.close();

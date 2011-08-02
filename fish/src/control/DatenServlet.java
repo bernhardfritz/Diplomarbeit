@@ -33,13 +33,8 @@ public class DatenServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String wtemp=request.getParameter("wtemp");
 		String ltemp=request.getParameter("ltemp");
-		String breite=request.getParameter("breite");
-		String laenge=request.getParameter("laenge");
 		String wasserstand=request.getParameter("wasserstand");
-		String volumen=request.getParameter("volumen");
-		String naehrstoffgehalt=request.getParameter("naehrstoffgehalt");
-		String lichtintensitaet=request.getParameter("lichtintensitaet");
-		Daten d=new Daten(wtemp,ltemp,breite,laenge,wasserstand,volumen,naehrstoffgehalt,lichtintensitaet);
+		Daten d=new Daten(wtemp,ltemp,wasserstand);
 		
 		DBManager dbman;
 		try {

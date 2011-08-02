@@ -10,12 +10,7 @@
 <form action="DatenServlet">
 Wassertemperatur:<input type="text" name="wtemp"/><br/>
 Lufttemperatur:<input type="text" name="ltemp"/><br/>
-Aquariumbreite:<input type="text" name="breite"/><br/>
-Aquariumlänge:<input type="text" name="laenge"/><br/>
 Wasserstand:<input type="text" name="wasserstand"/><br/>
-Volumen:<input type="text" name="volumen"/><br/>
-Nährstoffgehalt:<input type="text" name="naehrstoffgehalt"/><br/>
-Lichtintensität:<input type="text" name="lichtintensitaet"/><br/>
 <input type="submit" name="submit"/>
 </form>
 </body>
