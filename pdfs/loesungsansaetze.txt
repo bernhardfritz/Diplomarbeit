@@ -1,0 +1,20 @@
+Lösungsansätze für Wasserstandsmessung:
+
+Ultraschall:
+Ein Ultraschall-Signal wird vom Beckenrand zum Wasserspiegel gesendet.
+
+Optisch:
+Ein Licht-Signal wird vom Beckenrand zum Wasserspiegel gesendet.
+
+Schiene (Wasserstandsmessung über Wasser):
+Schiene wird je nach Wasserstand nach oben gedrückt. Über Wasser sind verschiedene Widerstände zur bestimmung des Wasserstands.
+
+Rohr (Kabel teils unter Wasser :-S):
+Selbes Prinzip wie Schiene...
+
+Kondensator:
+-
+
+Druckmessung:
+Luftdruck + Wasserdruck = Bodendruck
+=> Wasserdruck = Bodendruck - Luftdruck
