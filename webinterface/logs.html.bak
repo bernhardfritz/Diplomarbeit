@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="banner">
+				<div id="buttons">
+						<center>
+							<a href="index.html"><img src="img/button-status.png" /></a>
+							<a href="aquarium.html"><img src="img/button-aquarium-grau.png" /></a>
+							<a href="logs.html"><img src="img/button-logs-grau.png" /></a>
+							<a href="config.html"><img src="img/button-config-grau.png" /></a>
+					  </center>
+				</div><!-- Ende buttons -->	
+			</div><!-- Ende banner -->
+			<center>
+				<div id="fenster">
+				</div>
+				<div id="content">
+					<p>testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext</p>
+		  	</div><!-- Ende content -->
+		  </center>
+		</div><!-- Ende wrapper -->
+	</body>
+</html>
