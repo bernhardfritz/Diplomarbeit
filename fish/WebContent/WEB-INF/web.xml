@@ -29,4 +29,44 @@
     <servlet-name>SuchServlet</servlet-name>
     <url-pattern>/SuchServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConfigServlet</display-name>
+    <servlet-name>ConfigServlet</servlet-name>
+    <servlet-class>control.ConfigServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfigServlet</servlet-name>
+    <url-pattern>/ConfigServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjaxTestServlet</display-name>
+    <servlet-name>AjaxTestServlet</servlet-name>
+    <servlet-class>control.AjaxTestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxTestServlet</servlet-name>
+    <url-pattern>/AjaxTestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjaxTestServlet2</display-name>
+    <servlet-name>AjaxTestServlet2</servlet-name>
+    <servlet-class>control.AjaxTestServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxTestServlet2</servlet-name>
+    <url-pattern>/AjaxTestServlet2</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogsServlet</display-name>
+    <servlet-name>LogsServlet</servlet-name>
+    <servlet-class>control.LogsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogsServlet</servlet-name>
+    <url-pattern>/LogsServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

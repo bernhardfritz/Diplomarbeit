@@ -1,28 +1,24 @@
 package control;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
+import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import model.Daten;
-import model.DBManager;
 
 /**
- * Servlet implementation class SuchServlet
+ * Servlet implementation class AjaxTestServlet
  */
-public class SuchServlet extends HttpServlet {
+public class AjaxTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SuchServlet() {
+    public AjaxTestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,21 +34,9 @@ public class SuchServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String suchbegriff=request.getParameter("suchbegriff");
-		DBManager dbman;
-		try {
-			dbman = new DBManager();
-			List<Daten> erg=dbman.suche(suchbegriff);
-			dbman.close();
-			HttpSession session=request.getSession();
-			session.setAttribute("erg", erg);
-			response.sendRedirect("suche.jsp");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PrintWriter out = response.getWriter();
+		Date df = new Date();
+		out.println(df.getTime());
 	}
+
 }

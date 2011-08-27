@@ -1,28 +1,23 @@
 package control;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import model.Daten;
-import model.DBManager;
 
 /**
- * Servlet implementation class SuchServlet
+ * Servlet implementation class ConfigServlet
  */
-public class SuchServlet extends HttpServlet {
+public class ConfigServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SuchServlet() {
+    public ConfigServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,21 +33,35 @@ public class SuchServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String suchbegriff=request.getParameter("suchbegriff");
-		DBManager dbman;
-		try {
-			dbman = new DBManager();
-			List<Daten> erg=dbman.suche(suchbegriff);
-			dbman.close();
-			HttpSession session=request.getSession();
-			session.setAttribute("erg", erg);
-			response.sendRedirect("suche.jsp");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String str=request.getParameter("str");
+		int anzahl=0;
+		String res="";
+		PrintWriter out=response.getWriter();
+		if(!str.equals(""))
+		{
+			anzahl=new Integer(str);
 		}
+		if(anzahl!=0)
+		{
+			res="<form action=\"\">\n";
+			for(int i=0; i<anzahl; i++)
+			{
+				res+="<select name=\"stunden\">\n";
+				for(int j=0; j<=23; j++)
+				{
+					res+="<option value=\""+j+"\">"+j+"</option>\n";
+				}
+				res+="</select>\n";
+				res+="<select name=\"minuten\">\n";
+				for(int k=0; k<=59; k++)
+				{
+					res+="<option value=\""+k+"\">"+k+"</option>\n";
+				}
+				res+="</select><br />\n";
+			}
+			res+="</form>\n";
+		}
+		out.println(res);		
 	}
+
 }
