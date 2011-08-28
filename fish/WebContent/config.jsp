@@ -35,9 +35,9 @@ xmlhttp.send();
 </script>
 </head>
 <body>
-<form action="">
-Anzahl der Fütterungen pro Tag: <input type="text" onkeyup="myFunction(this.value)"/>
-</form>
+<form action="ConfigServlet2?anzahl=anzahl.value">
+Anzahl der Fütterungen pro Tag: <input type="text" name="anzahl" onkeyup="myFunction(this.value)"/>
 <div id="mydiv"></div>
+</form>
 </body>
 </html>

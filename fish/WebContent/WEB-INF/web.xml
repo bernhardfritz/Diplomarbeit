@@ -69,4 +69,24 @@
     <servlet-name>LogsServlet</servlet-name>
     <url-pattern>/LogsServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConfigServlet2</display-name>
+    <servlet-name>ConfigServlet2</servlet-name>
+    <servlet-class>control.ConfigServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfigServlet2</servlet-name>
+    <url-pattern>/ConfigServlet2</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>StatusServlet</display-name>
+    <servlet-name>StatusServlet</servlet-name>
+    <servlet-class>control.StatusServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StatusServlet</servlet-name>
+    <url-pattern>/StatusServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

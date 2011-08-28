@@ -36,6 +36,8 @@ public class ConfigServlet extends HttpServlet {
 		String str=request.getParameter("str");
 		int anzahl=0;
 		String res="";
+		String stunden="";
+		String minuten="";
 		PrintWriter out=response.getWriter();
 		if(!str.equals(""))
 		{
@@ -43,23 +45,36 @@ public class ConfigServlet extends HttpServlet {
 		}
 		if(anzahl!=0)
 		{
-			res="<form action=\"\">\n";
+			res+="<br />\n";
 			for(int i=0; i<anzahl; i++)
 			{
-				res+="<select name=\"stunden\">\n";
+				res+=(i+1)+". F&uuml;tterung um <select name=\"stunden"+i+"\">\n";
 				for(int j=0; j<=23; j++)
 				{
-					res+="<option value=\""+j+"\">"+j+"</option>\n";
+					stunden+=j;
+					if(stunden.length()==1)
+					{
+						stunden="0"+j;
+					}
+					res+="<option value=\""+stunden+"\">"+stunden+"</option>\n";
+					stunden="";
 				}
-				res+="</select>\n";
-				res+="<select name=\"minuten\">\n";
+				res+="</select>:\n";
+				res+="<select name=\"minuten"+i+"\">\n";
 				for(int k=0; k<=59; k++)
 				{
-					res+="<option value=\""+k+"\">"+k+"</option>\n";
+					minuten+=k;
+					if(minuten.length()==1)
+					{
+						minuten="0"+k;
+					}
+					res+="<option value=\""+minuten+"\">"+minuten+"</option>\n";
+					minuten="";
 				}
-				res+="</select><br />\n";
+				res+="</select>Uhr.<br />\n";
 			}
-			res+="</form>\n";
+			res+="<br />\n";
+			res+="<input type=\"submit\" value=\"Speichern\" />";
 		}
 		out.println(res);		
 	}
