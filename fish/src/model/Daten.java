@@ -1,8 +1,7 @@
 package model;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import control.Tool;
 
 
 public class Daten {
@@ -12,18 +11,14 @@ public class Daten {
 	String wasserstand;		 //Wasserstand in cm
 	String uhrzeit;			 //Uhrzeit als String
 	String datum;			 //Datum als String
-	Format formatter;
 	
 	public Daten(String wtemp, String ltemp, String wasserstand) {
 		super();
 		this.wtemp = wtemp;
 		this.ltemp = ltemp;
 		this.wasserstand = wasserstand;
-		Date d=new Date();
-		formatter=new SimpleDateFormat("HH:mm");
-		uhrzeit=formatter.format(d);
-		formatter=new SimpleDateFormat("dd.MM.yyyy");
-		datum=formatter.format(d);
+		uhrzeit=Tool.SgetTime("HH:mm");
+		datum=Tool.SgetTime("dd.MM.yyyy");
 	}
 	
 	public Daten(String wtemp, String ltemp, String wasserstand, String uhrzeit, String datum) {

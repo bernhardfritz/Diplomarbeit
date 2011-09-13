@@ -21,7 +21,6 @@ public class TestFeeding {
 		String uhrzeit;
 		String[] str;
 		String line="";
-		FileRW rw=new FileRW();
 		Daten daten;
 		DBManager dbman;
 		while(status.equals("start"))
@@ -30,7 +29,7 @@ public class TestFeeding {
 			uhrzeit=formatter.format(d);
 			str=new String[99];
 			try {
-				str=rw.read();
+				str=Tool.read("C:/fishconfig.txt");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

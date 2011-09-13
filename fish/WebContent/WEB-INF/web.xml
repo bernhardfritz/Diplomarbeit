@@ -89,4 +89,14 @@
     <servlet-name>StatusServlet</servlet-name>
     <url-pattern>/StatusServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AquariumServlet</display-name>
+    <servlet-name>AquariumServlet</servlet-name>
+    <servlet-class>control.AquariumServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AquariumServlet</servlet-name>
+    <url-pattern>/AquariumServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

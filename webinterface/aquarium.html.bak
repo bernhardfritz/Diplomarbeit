@@ -8,7 +8,7 @@
 				<div id="buttons">
 						<center>
 							<a href="index.html"><img src="img/button-status-grau.png" /></a>
-							<a href="aquarium.html"><img src="img/button-aquarium-grau.png" /></a>
+							<a href="aquarium.html"><img src="img/button-aquarium.png" /></a>
 							<a href="logs.html"><img src="img/button-logs-grau.png" /></a>
 							<a href="config.html"><img src="img/button-config-grau.png" /></a>
 					  </center>

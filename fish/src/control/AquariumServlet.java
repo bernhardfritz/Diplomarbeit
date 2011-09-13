@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ConfigServlet2
+ * Servlet implementation class AquariumServlet
  */
-public class ConfigServlet2 extends HttpServlet {
+public class AquariumServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ConfigServlet2() {
+    public AquariumServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,28 +26,18 @@ public class ConfigServlet2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String period=request.getParameter("period");
+		String res="";
 		PrintWriter out=response.getWriter();
-		String str[]=new String[99];
-		int anzahl=new Integer(request.getParameter("anzahl"));
-		for(int i=0; i<anzahl; i++)
-		{
-			str[i]=request.getParameter("stunden"+i)+":";
-			str[i]+=request.getParameter("minuten"+i);
-			out.println(str[i]);
-		}
-		try{
-			Tool.write("C:/fishfiles/fishconfig.txt",str);
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}	
+		res="<img src=\"C:\\fishfiles\\"+period+".png\" />";
+		out.println(res);
 	}
 
 }
