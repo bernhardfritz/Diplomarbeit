@@ -18,7 +18,9 @@
 				<div id="fenster">
 				</div>
 				<div id="content">
-					<p>testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext testtext</p>
+					<p>
+						<iframe src="http://localhost:8080/fish/aquarium2.html" width="975" height="400" />
+					</p>
 		  	</div><!-- Ende content -->
 		  </center>
 		</div><!-- Ende wrapper -->

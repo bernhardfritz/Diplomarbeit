@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,10 +33,8 @@ public class AquariumServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String period=request.getParameter("period");
-		String res="";
-		PrintWriter out=response.getWriter();
-		res="<img src=\"C:\\fishfiles\\"+period+".png\" />";
-		out.println(res);
+		Tool.createImage(period);
+		response.sendRedirect("http://localhost:8080/fish/aquarium.jsp");
 	}
 
 }

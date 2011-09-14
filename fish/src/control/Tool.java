@@ -22,9 +22,12 @@ import javax.imageio.ImageIO;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.data.time.Day;
+import org.jfree.data.time.Hour;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 
 import model.DBManager;
 import model.Daten;
@@ -233,7 +236,8 @@ public class Tool {
     
     public static void createImage(String period)
     {
-    	final XYSeries series1=new XYSeries("Temperaturkurve");
+    	final TimeSeries series1=new TimeSeries("Temperaturkurve");
+    	RegularTimePeriod t;
     	DBManager dbman=null;
     	try {
 			dbman=new DBManager();
@@ -255,9 +259,11 @@ public class Tool {
 			}
     		if(erg!=null)
     		{
+    			t=new Minute();
     			for(Daten d:erg)
     			{
-    				series1.add(Double.parseDouble(d.getUhrzeit().substring(3,5)),Double.parseDouble(d.getLtemp()));
+    				series1.add(t,Double.parseDouble(d.getLtemp()));
+    				t=t.next();
     			}
     		}
     	}
@@ -271,9 +277,11 @@ public class Tool {
 			}
     		if(erg!=null)
     		{
+    			t=new Hour();
     			for(Daten d:erg)
     			{
-    				series1.add(Double.parseDouble(d.getUhrzeit().substring(0,2)),Double.parseDouble(d.getLtemp()));
+    				series1.add(t,Double.parseDouble(d.getLtemp()));
+    				t=t.next();
     			}
     		}
     	}
@@ -291,26 +299,27 @@ public class Tool {
 			}
     		if(erg!=null)
     		{
+    			t=new Day();
     			for(Daten d:erg)
     			{
-    				series1.add(Double.parseDouble(d.getUhrzeit().substring(3,5)),Double.parseDouble(d.getLtemp()));
+    				series1.add(t,Double.parseDouble(d.getLtemp()));
+    				t=t.next();
     			}
     		}
     	}
-    	final XYSeriesCollection dataset = new XYSeriesCollection();
+    	final TimeSeriesCollection dataset = new TimeSeriesCollection();
     	dataset.addSeries(series1);
-    	final JFreeChart chart = ChartFactory.createXYLineChart(
-                "Temperaturkurve für eine(n) "+period,      // chart title
-                "Zeit",                      // x axis label
-                "Temperatur",                      // y axis label
-                dataset,                  // data
-                PlotOrientation.VERTICAL,
-                true,                     // include legend
-                true,                     // tooltips
-                false                     // urls
-            );
+    	final JFreeChart chart = ChartFactory.createTimeSeriesChart(
+        	"Temperaturkurve für eine(n) "+period,      // chart title
+        	"Zeit",                      // x axis label
+        	"Temperatur (°C)",                      // y axis label
+        	dataset,                  // data
+        	false,                     // include legend
+        	false,                     // tooltips
+        	false                     // urls
+    	);
     	BufferedImage bi=chart.createBufferedImage(800,400);
-    	File img=new File("C:/fishfiles/"+period+".png");
+    	File img=new File("C:/fishfiles/graph.png");
     	try {
 			ImageIO.write(bi,"png",img);
 		} catch (IOException e) {
