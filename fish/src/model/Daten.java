@@ -30,6 +30,16 @@ public class Daten {
 		this.datum = datum;
 	}
 
+	public Daten(int id, String wtemp, String ltemp, String wasserstand, String uhrzeit, String datum) {
+		super();
+		this.id = id;
+		this.wtemp = wtemp;
+		this.ltemp = ltemp;
+		this.wasserstand = wasserstand;
+		this.uhrzeit = uhrzeit;
+		this.datum = datum;
+	}
+
 	public int getId() {
 		return id;
 	}

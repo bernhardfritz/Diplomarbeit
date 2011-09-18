@@ -62,6 +62,42 @@ public Connection con;
 		return erg;
 	}
 	
+	public List<Daten> SQL(String sql) throws SQLException
+	{
+		List<Daten> erg=new ArrayList<Daten>();
+		Statement stmt=(Statement) con.createStatement();
+		ResultSet rs=stmt.executeQuery(sql);
+		while(rs.next())
+		{
+			int id=rs.getInt("id");
+			String wtemp=rs.getString("wtemp");
+			String ltemp=rs.getString("ltemp");
+			String wasserstand=rs.getString("wasserstand");
+			String uhrzeit=rs.getString("uhrzeit");
+			String datum=rs.getString("datum");
+			Daten d=new Daten(id,wtemp,ltemp,wasserstand,uhrzeit,datum);
+			erg.add(d);
+		}
+		rs.close();
+		stmt.close();
+		return erg;
+	}
+	
+	public int simpleSQL(String sql) throws SQLException
+	{
+		Statement stmt=(Statement) con.createStatement();
+		ResultSet rs=stmt.executeQuery(sql);
+		int id=0;
+		while(rs.next())
+		{
+			id=rs.getInt("id");
+			System.out.println(id);
+		}
+		rs.close();
+		stmt.close();
+		return id;
+	}
+	
 	public List<Daten> getAll() throws SQLException
 	{
 		List<Daten> erg=new ArrayList<Daten>();

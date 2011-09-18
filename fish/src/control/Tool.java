@@ -22,8 +22,6 @@ import javax.imageio.ImageIO;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.time.Day;
-import org.jfree.data.time.Hour;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.TimeSeries;
@@ -234,11 +232,60 @@ public class Tool {
     	else return false;
     }
     
+    public static String[] calcTime(String period)
+    {
+    	int hour=IgetTime("H");
+		String minutes=SgetTime("mm");
+		int day=IgetTime("d");
+		int month=IgetTime("M");
+		int year=IgetTime("yyyy");
+		String Sday="";
+		String Smonth="";
+		String uhrzeit="";
+		String datum="";
+		String[] time=new String[2];
+    	if(period.equals("Stunde"))
+    	{
+    		hour--;
+    		if(hour<0)
+    		{
+    			hour+=24;
+    			day--;
+    			if(day<0)
+    			{
+    				day+=30;
+    				month--;
+    				if(month<0)
+    				{
+    					month+=12;
+    					year--;
+    				}
+    			}
+    		} 		
+    	}
+    	uhrzeit+=hour;
+		if(uhrzeit.length()<2) uhrzeit="0"+uhrzeit;
+		uhrzeit+=":"+minutes;
+		Sday=""+day;
+		if(Sday.length()<2) Sday="0"+Sday;
+		Smonth=""+month;
+		if(Smonth.length()<2) Smonth="0"+Smonth;
+		datum=Sday+"."+Smonth+"."+year;
+    	time[0]=uhrzeit;
+    	time[1]=datum;
+    	return time;
+    }
+    
     public static void createImage(String period)
     {
-    	final TimeSeries series1=new TimeSeries("Temperaturkurve");
-    	RegularTimePeriod t;
+    	String[] time=new String[2];
+    	int first=0;
+    	int last=0;
     	DBManager dbman=null;
+    	List<Daten> erg=null;
+    	time=calcTime(period);
+    	final TimeSeries series1=new TimeSeries("Lufttemperatur");
+    	RegularTimePeriod t;
     	try {
 			dbman=new DBManager();
 		} catch (ClassNotFoundException e1) {
@@ -247,9 +294,42 @@ public class Tool {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} 
+		System.out.println(time[0]+" "+time[1]);
+    	try {
+			//first=dbman.simpleSQL("SELECT id FROM daten WHERE uhrzeit LIKE '%"+time[0]+"%' AND datum LIKE '%"+time[1]+"%' LIMIT 1");
+			//last=dbman.simpleSQL("SELECT id FROM daten ORDER BY id DESC LIMIT 1");
+			//last=dbman.simpleSQL("SELECT id FROM daten WHERE uhrzeit LIKE '%"+SgetTime("HH:mm")+"%' AND datum LIKE '%"+SgetTime("dd.MM.yyyy")+"%' LIMIT 1");
+			first=dbman.simpleSQL("SELECT id FROM daten WHERE uhrzeit LIKE '%20:00%' AND datum LIKE '%13.09.2011%' LIMIT 1");
+			last=dbman.simpleSQL("SELECT id FROM daten WHERE uhrzeit LIKE '%21:00%' AND datum LIKE '%13.09.2011%' LIMIT 1");
+    		erg=dbman.SQL("SELECT * FROM daten WHERE id>="+first+" AND id<="+last);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		List<Daten> erg=null;
-    	if(period.equals("Stunde"))
+		/*int m=new Integer(d.getUhrzeit().substring(3,4));
+		System.out.println(m);
+		int h=new Integer(d.getUhrzeit().substring(0,2));
+		System.out.println(h);
+		int D=new Integer(d.getDatum().substring(0,2));
+		System.out.println(D);
+		int M=new Integer(d.getDatum().substring(3,5));
+		System.out.println(M);
+		int Y=new Integer(d.getDatum().substring(6,10));
+		System.out.println(Y);
+		System.out.println(d.getLtemp());
+		t=new Minute(m,h,D,M,Y);*/
+		t=new Minute(0,20,13,9,2011);
+    	for(Daten d:erg)
+		{
+    		if(d.getLtemp()!=null&&d.getUhrzeit()!=null)
+    		{
+    			series1.add(t,Double.parseDouble(d.getLtemp()));
+			}
+    		t.next();
+		}
+		
+    	/*if(period.equals("Stunde"))
     	{
     		try {
 				erg=dbman.suche(SgetTime("HH:"));
@@ -266,65 +346,25 @@ public class Tool {
     				t=t.next();
     			}
     		}
-    	}
-    	if(period.equals("Tag"))
-    	{
-    		try {
-				erg=dbman.suche(SgetTime("dd.MM.yyyy"));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		if(erg!=null)
-    		{
-    			t=new Hour();
-    			for(Daten d:erg)
-    			{
-    				series1.add(t,Double.parseDouble(d.getLtemp()));
-    				t=t.next();
-    			}
-    		}
-    	}
-    	if(period.equals("Woche"))
-    	{
-    		//series1.add(0,0);
-    	}
-    	if(period.equals("Monat"))
-    	{
-    		try {
-				erg=dbman.suche(SgetTime("HH:"));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		if(erg!=null)
-    		{
-    			t=new Day();
-    			for(Daten d:erg)
-    			{
-    				series1.add(t,Double.parseDouble(d.getLtemp()));
-    				t=t.next();
-    			}
-    		}
-    	}
-    	final TimeSeriesCollection dataset = new TimeSeriesCollection();
+    	}*/
+    	final TimeSeriesCollection dataset=new TimeSeriesCollection();
     	dataset.addSeries(series1);
     	final JFreeChart chart = ChartFactory.createTimeSeriesChart(
-        	"Temperaturkurve für eine(n) "+period,      // chart title
-        	"Zeit",                      // x axis label
-        	"Temperatur (°C)",                      // y axis label
-        	dataset,                  // data
-        	false,                     // include legend
-        	false,                     // tooltips
-        	false                     // urls
-    	);
+    				"Temperaturkurve für eine(n) "+period,      // chart title
+    				"Zeit",                      // x axis label
+    				"Temperatur (°C)",                      // y axis label
+    				dataset,                  // data
+    				false,                     // include legend
+    				false,                     // tooltips
+    				false                     // urls
+    		);
     	BufferedImage bi=chart.createBufferedImage(800,400);
-    	File img=new File("C:/fishfiles/graph.png");
-    	try {
-			ImageIO.write(bi,"png",img);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+    		File img=new File("C:/fishfiles/graph.png");
+    		try {
+    			ImageIO.write(bi,"png",img);
+    		} catch (IOException e) {
+			// 	TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
     }
 }
