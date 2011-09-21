@@ -22,6 +22,7 @@ import javax.imageio.ImageIO;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.data.time.Hour;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.TimeSeries;
@@ -319,14 +320,18 @@ public class Tool {
 		System.out.println(Y);
 		System.out.println(d.getLtemp());
 		t=new Minute(m,h,D,M,Y);*/
-		t=new Minute(0,20,13,9,2011);
+		//t=new Minute(0,20,13,9,2011);
+		t=new Minute();
     	for(Daten d:erg)
 		{
     		if(d.getLtemp()!=null&&d.getUhrzeit()!=null)
     		{
+    			
     			series1.add(t,Double.parseDouble(d.getLtemp()));
+    			System.out.println(d.getLtemp());
+    			System.out.println(t);
 			}
-    		t.next();
+    		t=t.next();
 		}
 		
     	/*if(period.equals("Stunde"))
