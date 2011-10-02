@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -277,6 +278,17 @@ public class Tool {
     	return time;
     }
     
+    public static Calendar calcTime2(String period)
+    {
+		Calendar cal=Calendar.getInstance();
+		if(period.equals("Stunde")) cal.add(Calendar.HOUR_OF_DAY, -1);
+		if(period.equals("Tag")) cal.add(Calendar.DAY_OF_MONTH, -1);
+		if(period.equals("Woche")) cal.add(Calendar.WEEK_OF_YEAR, -1);
+		if(period.equals("Monat")) cal.add(Calendar.MONTH, -1);
+		if(period.equals("Jahr")) cal.add(Calendar.YEAR, -1);
+    	return cal;
+    }
+    
     public static void createImage(String period)
     {
     	String[] time=new String[2];
@@ -371,5 +383,79 @@ public class Tool {
 			// 	TODO Auto-generated catch block
     			e.printStackTrace();
     		}
+    }
+    public static void createImage2(String period)
+    {
+    	Calendar fromcal=calcTime2(period);
+    	Calendar tocal=Calendar.getInstance();
+    	String fromtime=timeFormat(fromcal.getTime().getHours())+":"+timeFormat(fromcal.getTime().getMinutes());
+    	String fromdate=timeFormat(fromcal.getTime().getDate())+"."+timeFormat((fromcal.getTime().getMonth()+1))+"."+(fromcal.getTime().getYear()+1900);
+    	String totime=timeFormat(tocal.getTime().getHours())+":"+timeFormat(tocal.getTime().getMinutes());
+    	String todate=timeFormat(tocal.getTime().getDate())+"."+timeFormat((tocal.getTime().getMonth()+1))+"."+(tocal.getTime().getYear()+1900);
+    	int fromid;
+    	int toid;
+    	DBManager dbman=null;
+    	List<Daten> erg=null;
+    	final TimeSeries series1=new TimeSeries("Lufttemperatur");
+    	RegularTimePeriod t;
+    	try {
+			dbman=new DBManager();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		System.out.println("Von "+fromtime+" "+fromdate);
+		System.out.println("Bis "+totime+" "+todate);
+    	try {
+			fromid=dbman.simpleSQL("SELECT id FROM daten WHERE uhrzeit LIKE '%"+fromtime+"%' AND datum LIKE '%"+fromdate+"%' LIMIT 1");
+			toid=dbman.simpleSQL("SELECT id FROM daten ORDER BY id DESC LIMIT 1");
+			//toid=dbman.simpleSQL("SELECT id FROM daten WHERE uhrzeit LIKE '%"+totime+"%' AND datum LIKE '%"+todate+"%' LIMIT 1");
+			//fromid=dbman.simpleSQL("SELECT id FROM daten WHERE uhrzeit LIKE '%20:00%' AND datum LIKE '%13.09.2011%' LIMIT 1");
+			//toid=dbman.simpleSQL("SELECT id FROM daten WHERE uhrzeit LIKE '%21:00%' AND datum LIKE '%13.09.2011%' LIMIT 1");
+    		erg=dbman.SQL("SELECT * FROM daten WHERE id>="+fromid+" AND id<="+toid);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//t=new Minute();
+		t=new Minute(fromcal.getTime());
+		for(Daten d:erg)
+		{
+			if(d.getLtemp()!=null&&d.getUhrzeit()!=null)
+			{    			
+				series1.add(t,Double.parseDouble(d.getLtemp()));
+				System.out.println(d.getLtemp());
+				System.out.println(t);
+			}
+			t=t.next();
+		}
+    	final TimeSeriesCollection dataset=new TimeSeriesCollection();
+    	dataset.addSeries(series1);
+    	final JFreeChart chart = ChartFactory.createTimeSeriesChart(
+    				"Temperaturkurve für eine(n) "+period,      // chart title
+    				"Zeit",                      // x axis label
+    				"Temperatur (°C)",                      // y axis label
+    				dataset,                  // data
+    				false,                     // include legend
+    				false,                     // tooltips
+    				false                     // urls
+    		);
+    	BufferedImage bi=chart.createBufferedImage(800,400);
+    		File img=new File("C:/fishfiles/graph.png");
+    		try {
+    			ImageIO.write(bi,"png",img);
+    		} catch (IOException e) {
+			// 	TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    }
+    public static String timeFormat(int i)
+    {
+		String s=""+i;
+		if(s.length()<2) s="0"+s;
+		return s;
     }
 }
