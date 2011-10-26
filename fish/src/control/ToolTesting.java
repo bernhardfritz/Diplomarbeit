@@ -8,7 +8,7 @@ public class ToolTesting {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Tool.createImage2("Stunde");
+		Tool.createImage2("Woche");
 		/*Calendar cal=Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -5);
 		System.out.println(cal.getTime().toString());*/
