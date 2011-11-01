@@ -28,12 +28,7 @@ public class TestFeeding {
 			d=new Date();
 			uhrzeit=formatter.format(d);
 			str=new String[99];
-			try {
-				str=Tool.read("C:/fishconfig.txt");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			str=Tool.read("C:/fishconfig.txt");
 			
 	    	for (int i=0; i<str.length; i++) {
 	            if(str[i]!=null)

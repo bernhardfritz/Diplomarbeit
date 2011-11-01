@@ -51,21 +51,28 @@ public class Tool {
         bw.close();
     }
     
-    public static String[] read(String path) throws IOException
+    public static String[] read(String path)
     {
+    	String str[]=new String[99];
+    	try
+    	{
     	File file = new File(path);
     	BufferedReader br = new BufferedReader(new FileReader(file));
  
-        String str[]=new String[99];
     	String line;
     	int i=0;
  
-        while ((line = br.readLine()) != null) {
+        while ((line = br.readLine()) != null)
+        {
             str[i]=line;
             i++;
         }
  
         br.close();
+    	}catch(IOException e)
+    	{
+    		e.printStackTrace();
+    	}
         return str;
  
     }
@@ -74,12 +81,7 @@ public class Tool {
 	{
 		Double fishdata[]=new Double[51];
 		String s[]=new String[51];
-		try {
-			s=read("C:/fishfiles/fishdata2.txt");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		s=read("C:/fishfiles/fishdata2.txt");
 		for(int i=0; i<=50; i++)
 		{
 			fishdata[i]=new Double(s[i]);
@@ -119,7 +121,14 @@ public class Tool {
         schreibeNachricht(socket, zuSendendeNachricht);
         String empfangeneNachricht = leseNachricht(socket);
         String formatierteNachricht = formatiereNachricht(empfangeneNachricht);
+        socket.close();
         return formatierteNachricht;
+     }
+    public static void connect2(String ip,int port,String cmd) throws IOException {
+        java.net.Socket socket = new java.net.Socket(ip,port);
+        String zuSendendeNachricht = cmd;
+        schreibeNachricht(socket, zuSendendeNachricht);
+        socket.close();
      }
     
     public static void schreibeNachricht(java.net.Socket socket, String nachricht) throws IOException {
@@ -228,10 +237,11 @@ public class Tool {
 		}
     }
     
-    public static boolean synchronize(int minutes)
+    public static void feed(int port) throws IOException
     {
-    	if(IgetTime("m")==0||IgetTime("m")%minutes==0) return true;
-    	else return false;
+    	Tool.connect2("192.168.0.90",50290,"SETPORT "+port+".0");
+    	Tool.wait(5000);
+    	Tool.connect2("192.168.0.90",50290,"SETPORT "+port+".1");
     }
     
     public static String[] calcTime(String period)

@@ -6,8 +6,7 @@ public class Fetching
 	{
 		boolean run=true;
 		boolean isReachable=false;
-		boolean synchron=false;
-		boolean fetch=true;
+		boolean fetching=true;
 		int current=Tool.IgetTime("m");
 		int previous=Tool.IgetTime("m");
 		while(run)
@@ -18,22 +17,18 @@ public class Fetching
 				Tool.wait(5000);
 			}
 			System.out.println("AVR-Net-IO connected!");
-			while(fetch)
+			while(fetching)
 			{
 				current=Tool.IgetTime("m");
-				while(!synchron&&current!=previous)
-				{
-					synchron=Tool.synchronize(1);
-				}
-				if(synchron)
+				if(current!=previous)
 				{
 					System.out.println("Synchronisierung erfolgreich!");
 					System.out.println("Es ist "+Tool.SgetTime("HH:mm")+" Uhr. Datenermittlung wird gestartet!");
 					Tool.fetch();
 					System.out.println("Daten wurden um "+Tool.SgetTime("HH:mm")+" Uhr erfolgreich in die Datenbank eingetragen!");
 					previous=current;
-					synchron=false;
 				}
+				Tool.wait(1000);
 			}
 		}
 	}

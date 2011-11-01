@@ -39,13 +39,13 @@ public class StatusServlet extends HttpServlet {
 		PrintWriter out=response.getWriter();
 		if(status.equals("start"))
 		{
-			TestFeeding.status="start";
-			TestFeeding.main(null);
+			Feeding.status="start";
 			out.println("started");
+			Feeding.main(null);
 		}
 		if(status.equals("stop"))
 		{
-			TestFeeding.status="stop";
+			Feeding.status="stop";
 			out.println("stopped");
 		}
 		
