@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.Format;
@@ -29,8 +30,7 @@ import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 
-import model.DBManager;
-import model.Daten;
+import model.*;
 
 public class Tool {
 
@@ -237,11 +237,55 @@ public class Tool {
 		}
     }
     
-    public static void feed(int port) throws IOException
+    public static void fetch2(SocketManager sman,int adc)
     {
-    	Tool.connect2("192.168.0.90",50290,"SETPORT "+port+".0");
-    	Tool.wait(5000);
-    	Tool.connect2("192.168.0.90",50290,"SETPORT "+port+".1");
+    	String s="";
+    	int i;
+    	double v;
+    	int t;
+    	s=sman.GETADC(adc);
+    	i=Integer.parseInt(s);
+		v=Tool.getVoltage(i);
+		t=Tool.getTemperature(v);
+    	String wtemp=""+t;
+    	String ltemp=""+t;
+    	String wasserstand="50";
+    	Daten d=new Daten(wtemp,ltemp,wasserstand);
+    	DBManager dbman=null;
+    	try {
+			dbman=new DBManager();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			dbman.speichern(d);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    public static void feed(int port)
+    {
+    	try {
+			Tool.connect2("192.168.0.90",50290,"SETPORT "+port+".0");
+			Tool.wait(5000);
+	    	Tool.connect2("192.168.0.90",50290,"SETPORT "+port+".1");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    public static void feed2(SocketManager sman,int adc)
+    {
+    	sman.SETPORT(adc,0);
+    	wait(5000);
+    	sman.SETPORT(adc,1);
     }
     
     public static String[] calcTime(String period)
