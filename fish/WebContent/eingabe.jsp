@@ -10,7 +10,6 @@
 <form action="DatenServlet">
 Wassertemperatur:<input type="text" name="wtemp"/><br/>
 Lufttemperatur:<input type="text" name="ltemp"/><br/>
-Wasserstand:<input type="text" name="wasserstand"/><br/>
 <input type="submit" name="submit"/>
 </form>
 </body>

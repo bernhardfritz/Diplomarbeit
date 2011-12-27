@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import control.Tool;
+import control.Data;
 
 public class SocketManager {
 	
@@ -20,8 +20,8 @@ public class SocketManager {
 	
 	public SocketManager()
 	{
-		ip="192.168.0.90";
-		port=50290;
+		ip=Data.netioip;
+		port=Data.netioport;
 		init();
 	}
 	
@@ -32,11 +32,9 @@ public class SocketManager {
 			printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 			bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Data.logger.error(e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Data.logger.error(e.getMessage());
 		}
 	}
 	
@@ -45,8 +43,7 @@ public class SocketManager {
 		try {
 			socket.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Data.logger.error(e.getMessage());
 		}
 	}
 	
@@ -59,7 +56,7 @@ public class SocketManager {
     		schreibeNachricht(zuSendendeNachricht);
     		empfangeneNachricht = leseNachricht();
     	} catch (IOException e) {
-    		e.printStackTrace();
+    		Data.logger.error(e.getMessage());
     	}	
     	
 		formatierteNachricht = empfangeneNachricht.substring(0,3);
@@ -75,7 +72,7 @@ public class SocketManager {
     		schreibeNachricht(zuSendendeNachricht);
     		empfangeneNachricht = leseNachricht();
     	} catch (IOException e) {
-    		e.printStackTrace();
+    		Data.logger.error(e.getMessage());
     	}	
     	
 		formatierteNachricht = empfangeneNachricht.substring(8,9);
@@ -91,7 +88,7 @@ public class SocketManager {
 				leseNachricht();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Data.logger.error(e.getMessage());
 			}
     }
     

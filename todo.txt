@@ -1,0 +1,5 @@
+-Anmelden mit User beim Webinterface
+
+-jfreecharts applet
+
+-HTML Bild erstellen

@@ -1,0 +1,36 @@
+TODO
+
++Datenbank verändern
+id(int)|wtemp(double)|ltemp(double)|zeitpunkt(datetime)
+
+create table datentest
+(
+id integer primary key auto_increment,
+wtemp double default 0,
+ltemp double default 0,
+zeitpunkt timestamp default now()
+);
+
++Widerstand von der Sensorschaltung ändern
+
++Webinhalte auf .jsp ändern
+
++propertyfiles
+
++logger
+
++Statements auf PreparedStatements
+
++bericht:
+	rrdtool
+	jfreechart
+	simile-widgets
+
++Webinterface ändern
+Home|Graph|Tabelle|Logs|Konfiguration
+
+-Anmelden mit User beim Webinterface
+
+-jfreecharts applet
+
+-HTML Bild erstellen

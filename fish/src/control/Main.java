@@ -8,6 +8,7 @@ public class Main {
 	
 	public static void main(String[] args)
 	{
+		new Data();
 		SocketManager sman=new SocketManager();
 		boolean run=true;
 		boolean isReachable=false;
@@ -17,25 +18,24 @@ public class Main {
 		String line="";
 		int current=Tool.IgetTime("m");
 		int previous=Tool.IgetTime("m");
-		sman.SETPORT(1,1);
+		sman.SETPORT(1,0);
 		while(run)
 		{
 			while(!isReachable)
 			{
-				isReachable=Tool.ping("192.168.0.90");
+				isReachable=Tool.ping();
 				Tool.wait(5000);
 			}
-			System.out.println("AVR-Net-IO connected!");
+			Data.logger.info("AVR-Net-IO connected!");
 			while(fetching)
 			{
 				current=Tool.IgetTime("m");
 				if(current!=previous)
 				{
-					System.out.println("Synchronisierung erfolgreich!");
-					System.out.println("Es ist "+Tool.SgetTime("HH:mm")+" Uhr. Datenermittlung wird gestartet!");
-					//Tool.fetch();
-					Tool.fetch2(sman,1);
-					System.out.println("Daten wurden um "+Tool.SgetTime("HH:mm")+" Uhr erfolgreich in die Datenbank eingetragen!");
+					Data.logger.info("Synchronisierung erfolgreich!");
+					Data.logger.info("Datenermittlung wird gestartet!");
+					Tool.fetch(sman,1);
+					Data.logger.info("Daten wurden erfolgreich in die Datenbank eingetragen!");
 					if(feeding)
 					{
 						str=Tool.read("C:/fishfiles/fishconfig.txt");
@@ -46,9 +46,9 @@ public class Main {
 						}
 						if(ready)
 						{
-							System.out.println("Es ist "+Tool.SgetTime("HH:mm")+" Uhr. Fütterung wird gestartet!");
-							Tool.feed2(sman,1);
-							System.out.println("Fische wurden um "+Tool.SgetTime("HH:mm")+" Uhr erfolgreich gefüttert!");
+							Data.logger.info("Fütterung wird gestartet!");
+							Tool.feed(sman,1);
+							Data.logger.info("Fische wurden erfolgreich gefüttert!");
 							ready=false;
 						}
 					}

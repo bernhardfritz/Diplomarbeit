@@ -40,7 +40,6 @@ public class ConfigServlet2 extends HttpServlet {
 		{
 			str[i]=request.getParameter("stunden"+i)+":";
 			str[i]+=request.getParameter("minuten"+i);
-			out.println(str[i]);
 		}
 		try{
 			Tool.write("C:/fishfiles/fishconfig.txt",str);
@@ -48,6 +47,7 @@ public class ConfigServlet2 extends HttpServlet {
 		{
 			e.printStackTrace();
 		}	
+		response.sendRedirect("index.jsp");
 	}
 
 }

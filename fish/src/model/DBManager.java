@@ -4,118 +4,145 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
+import com.sun.jmx.snmp.Timestamp;
+
+import control.*;
 
 public class DBManager {
 public Connection con;
 	
-	public DBManager() throws ClassNotFoundException, SQLException
+	public DBManager()
 	{
-		String myDb = "//localhost/java";
-		Class.forName("com.mysql.jdbc.Driver");
-		con = (Connection) DriverManager.getConnection("jdbc:mysql:" + myDb,"root","");
+		try {
+			Class.forName(Data.driver);
+		} catch (ClassNotFoundException e) {
+			Data.logger.error(e.getMessage());
+		}
+		try {
+			con = (Connection) DriverManager.getConnection(Data.dburl,Data.user,Data.pass);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			Data.logger.error(e.getMessage());
+		}
 	}
 	
-	public void close() throws SQLException
+	public void close()
 	{
-		con.close();
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			Data.logger.error(e.getMessage());
+		}
 	}
 	
-	public void speichern(Daten d) throws SQLException
+	public void speichern(Daten d)
 	{
-		String sql="INSERT INTO daten(wtemp,ltemp,wasserstand,uhrzeit,datum) VALUES(" +
-				"'"+d.getWtemp()+"',"+
-				"'"+d.getLtemp()+"',"+
-				"'"+d.getWasserstand()+"',"+
-				"'"+d.getUhrzeit()+"',"+
-				"'"+d.getDatum()+"')";
-		Statement stmt=(Statement) con.createStatement();
-		stmt.executeUpdate(sql);
-		stmt.close();
+		String sql="INSERT INTO "+Data.table+"(wtemp,ltemp) VALUES(?,?)";
+		try {
+			PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
+			ps.setDouble(1,d.getWtemp());
+			ps.setDouble(2,d.getLtemp());
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
+		}
 	}
 	
-	public List<Daten> suche(String s) throws SQLException
+	public List<Daten> suche(String s)
 	{
 		List<Daten> erg=new ArrayList<Daten>();
-		Statement stmt=(Statement) con.createStatement();
-		String sql="SELECT * FROM daten WHERE wtemp LIKE '%"+s+"%' OR " +
-				"ltemp LIKE '%"+s+"%' OR "+
-				"wasserstand LIKE '%"+s+"%' OR "+
-				"uhrzeit LIKE '%"+s+"%' OR "+
-				"datum LIKE '%"+s+"%'";
-		ResultSet rs=stmt.executeQuery(sql);
-		while(rs.next())
-		{
-			String wtemp=rs.getString("wtemp");
-			String ltemp=rs.getString("ltemp");
-			String wasserstand=rs.getString("wasserstand");
-			String uhrzeit=rs.getString("uhrzeit");
-			String datum=rs.getString("datum");
-			Daten d=new Daten(wtemp,ltemp,wasserstand,uhrzeit,datum);
-			erg.add(d);
+		String sql="SELECT * FROM "+Data.table+" WHERE wtemp LIKE '%?%' OR ltemp LIKE '%?%' OR zeitpunkt LIKE '%?%'";
+		try {
+			PreparedStatement ps=(PreparedStatement) con.createStatement();
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				double wtemp=rs.getDouble(1);
+				double ltemp=rs.getDouble(2);
+				Date zeitpunkt=rs.getDate(3);
+				Daten d=new Daten(wtemp,ltemp,zeitpunkt);
+				erg.add(d);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
 		}
-		rs.close();
-		stmt.close();
 		return erg;
 	}
 	
-	public List<Daten> SQL(String sql) throws SQLException
+	public List<Daten> SQL(String sql)
 	{
 		List<Daten> erg=new ArrayList<Daten>();
-		Statement stmt=(Statement) con.createStatement();
-		ResultSet rs=stmt.executeQuery(sql);
-		while(rs.next())
-		{
-			int id=rs.getInt("id");
-			String wtemp=rs.getString("wtemp");
-			String ltemp=rs.getString("ltemp");
-			String wasserstand=rs.getString("wasserstand");
-			String uhrzeit=rs.getString("uhrzeit");
-			String datum=rs.getString("datum");
-			Daten d=new Daten(id,wtemp,ltemp,wasserstand,uhrzeit,datum);
-			erg.add(d);
+		try {
+			Statement stmt=(Statement) con.createStatement();
+			ResultSet rs=stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				int id=rs.getInt("id");
+				double wtemp=rs.getDouble("wtemp");
+				double ltemp=rs.getDouble("ltemp");
+				Date zeitpunkt=rs.getDate("zeitpunkt");
+				Daten d=new Daten(id,wtemp,ltemp,zeitpunkt);
+				erg.add(d);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
 		}
-		rs.close();
-		stmt.close();
 		return erg;
 	}
 	
-	public int simpleSQL(String sql) throws SQLException
+	public int simpleSQL(String sql)
 	{
-		Statement stmt=(Statement) con.createStatement();
-		ResultSet rs=stmt.executeQuery(sql);
 		int id=0;
-		while(rs.next())
-		{
-			id=rs.getInt("id");
-			System.out.println(id);
+		try {
+			Statement stmt=(Statement) con.createStatement();
+			ResultSet rs=stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				id=rs.getInt("id");
+				System.out.println(id);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
 		}
-		rs.close();
-		stmt.close();
 		return id;
 	}
 	
-	public List<Daten> getAll() throws SQLException
+	public List<Daten> getAll()
 	{
 		List<Daten> erg=new ArrayList<Daten>();
-		Statement stmt=(Statement) con.createStatement();
-		String sql="SELECT * FROM daten";
-		ResultSet rs=stmt.executeQuery(sql);
-		while(rs.next())
-		{
-			String wtemp=rs.getString("wtemp");
-			String ltemp=rs.getString("ltemp");
-			String wasserstand=rs.getString("wasserstand");
-			String uhrzeit=rs.getString("uhrzeit");
-			String datum=rs.getString("datum");
-			Daten d=new Daten(wtemp,ltemp,wasserstand,uhrzeit,datum);
-			erg.add(d);
+		String sql="SELECT * FROM "+Data.table;
+		try {
+			Statement ps=(Statement) con.createStatement();
+			ResultSet rs=ps.executeQuery(sql);
+			while(rs.next())
+			{
+				int id=rs.getInt(1);
+				double wtemp=rs.getDouble(2);
+				double ltemp=rs.getDouble(3);
+				java.sql.Timestamp sqlzeitpunkt=rs.getTimestamp(4);
+				java.util.Date zeitpunkt=new java.util.Date(sqlzeitpunkt.getTime());
+				Daten d=new Daten(id,wtemp,ltemp,zeitpunkt);
+				erg.add(d);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
 		}
-		rs.close();
-		stmt.close();
 		return erg;
 	}
 }

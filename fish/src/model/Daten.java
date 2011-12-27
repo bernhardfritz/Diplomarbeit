@@ -1,43 +1,34 @@
 package model;
 
 
-import control.Tool;
+import java.util.Date;
 
 
 public class Daten {
 	int id;
-	String wtemp;            //Wassertemperatur in Celsius
-	String ltemp;			 //Lufttemperatur in Celsius
-	String wasserstand;		 //Wasserstand in cm
-	String uhrzeit;			 //Uhrzeit als String
-	String datum;			 //Datum als String
+	double wtemp;            //Wassertemperatur in Celsius
+	double ltemp;			 //Lufttemperatur in Celsius
+	Date zeitpunkt;		 //Uhrzeit und Datum als datetime
 	
-	public Daten(String wtemp, String ltemp, String wasserstand) {
+	public Daten(double wtemp, double ltemp) {
+		super();
+		this.wtemp = wtemp;
+		this.ltemp = ltemp;	    
+	}
+	
+	public Daten(double wtemp, double ltemp,Date zeitpunkt) {
 		super();
 		this.wtemp = wtemp;
 		this.ltemp = ltemp;
-		this.wasserstand = wasserstand;
-		uhrzeit=Tool.SgetTime("HH:mm");
-		datum=Tool.SgetTime("dd.MM.yyyy");
+		this.zeitpunkt = zeitpunkt;
 	}
 	
-	public Daten(String wtemp, String ltemp, String wasserstand, String uhrzeit, String datum) {
-		super();
-		this.wtemp = wtemp;
-		this.ltemp = ltemp;
-		this.wasserstand = wasserstand;
-		this.uhrzeit = uhrzeit;
-		this.datum = datum;
-	}
-
-	public Daten(int id, String wtemp, String ltemp, String wasserstand, String uhrzeit, String datum) {
+	public Daten(int id, double wtemp, double ltemp, Date zeitpunkt) {
 		super();
 		this.id = id;
 		this.wtemp = wtemp;
 		this.ltemp = ltemp;
-		this.wasserstand = wasserstand;
-		this.uhrzeit = uhrzeit;
-		this.datum = datum;
+		this.zeitpunkt = zeitpunkt;
 	}
 
 	public int getId() {
@@ -48,43 +39,27 @@ public class Daten {
 		this.id = id;
 	}
 
-	public String getWtemp() {
+	public double getWtemp() {
 		return wtemp;
 	}
 
-	public void setWtemp(String wtemp) {
+	public void setWtemp(double wtemp) {
 		this.wtemp = wtemp;
 	}
 
-	public String getLtemp() {
+	public double getLtemp() {
 		return ltemp;
 	}
 
-	public void setLtemp(String ltemp) {
+	public void setLtemp(double ltemp) {
 		this.ltemp = ltemp;
 	}
 
-	public String getWasserstand() {
-		return wasserstand;
+	public Date getZeitpunkt() {
+		return zeitpunkt;
 	}
 
-	public void setWasserstand(String wasserstand) {
-		this.wasserstand = wasserstand;
-	}
-
-	public String getUhrzeit() {
-		return uhrzeit;
-	}
-
-	public void setUhrzeit(String uhrzeit) {
-		this.uhrzeit = uhrzeit;
-	}
-	
-	public String getDatum() {
-		return datum;
-	}
-
-	public void setDatum(String datum) {
-		this.datum = datum;
+	public void setZeitpunkt(Date zeitpunkt) {
+		this.zeitpunkt = zeitpunkt;
 	}
 }

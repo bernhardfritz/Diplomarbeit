@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 
+import model.SocketManager;
+
 public class Feeding {
 		
 	public static String status="start";
@@ -15,12 +17,13 @@ public class Feeding {
 		String line="";
 		int current=Tool.IgetTime("m");
 		int previous=Tool.IgetTime("m");
-		Tool.connect2("192.168.0.90", 50290, "SETPORT 1.1");
+		SocketManager sman=new SocketManager();
+		
 		while(status.equals("start"))
 		{
 			while(!isReachable)
 			{
-				isReachable=Tool.ping("192.168.0.90");
+				isReachable=Tool.ping();
 				Tool.wait(5000);
 			}
 			System.out.println("AVR-Net-IO verbunden!");
@@ -38,7 +41,7 @@ public class Feeding {
 					}
 					if(ready)
 					{
-						Tool.feed(1);
+						Tool.feed(sman,1);
 						previous=current;
 						ready=false;
 					}
