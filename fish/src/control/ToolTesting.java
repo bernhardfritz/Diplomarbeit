@@ -14,9 +14,8 @@ public class ToolTesting {
 		/*Calendar cal=Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, -5);
 		System.out.println(cal.getTime().toString());*/
-		Tool.feed(1);
-		Feeding.status="start";
-		Feeding.main(null);
+		//Tool.feed(1);
+		Main.main(null);
 	}
 
 }

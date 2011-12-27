@@ -24,9 +24,7 @@ if(erg!=null)
 	{
 		out.println("<tr><td>"+d.getWtemp()+
 				"</td><td>"+d.getLtemp()+
-				"</td><td>"+d.getWasserstand()+
-				"</td><td>"+d.getUhrzeit()+
-				"</td><td>"+d.getDatum()+
+				"</td><td>"+d.getZeitpunkt()+
 				"</td></tr>");	
 	}
 }

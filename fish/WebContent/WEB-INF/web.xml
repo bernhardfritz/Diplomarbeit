@@ -99,4 +99,14 @@
     <servlet-name>AquariumServlet</servlet-name>
     <url-pattern>/AquariumServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DBServlet</display-name>
+    <servlet-name>DBServlet</servlet-name>
+    <servlet-class>control.DBServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DBServlet</servlet-name>
+    <url-pattern>/DBServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

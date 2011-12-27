@@ -1,5 +1,7 @@
 package control;
 
+import model.SocketManager;
+
 public class Fetching
 {	
 	public static void main(String[] args)
@@ -9,11 +11,12 @@ public class Fetching
 		boolean fetching=true;
 		int current=Tool.IgetTime("m");
 		int previous=Tool.IgetTime("m");
+		SocketManager sman=new SocketManager();
 		while(run)
 		{
 			while(!isReachable)
 			{
-				isReachable=Tool.ping("192.168.0.90");
+				isReachable=Tool.ping();
 				Tool.wait(5000);
 			}
 			System.out.println("AVR-Net-IO connected!");
@@ -24,7 +27,7 @@ public class Fetching
 				{
 					System.out.println("Synchronisierung erfolgreich!");
 					System.out.println("Es ist "+Tool.SgetTime("HH:mm")+" Uhr. Datenermittlung wird gestartet!");
-					Tool.fetch();
+					Tool.fetch(sman,1);
 					System.out.println("Daten wurden um "+Tool.SgetTime("HH:mm")+" Uhr erfolgreich in die Datenbank eingetragen!");
 					previous=current;
 				}

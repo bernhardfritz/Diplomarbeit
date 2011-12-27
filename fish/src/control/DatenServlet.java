@@ -31,23 +31,15 @@ public class DatenServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String wtemp=request.getParameter("wtemp");
-		String ltemp=request.getParameter("ltemp");
-		String wasserstand=request.getParameter("wasserstand");
-		Daten d=new Daten(wtemp,ltemp,wasserstand);
+		double wtemp=Double.parseDouble(request.getParameter("wtemp"));
+		double ltemp=Double.parseDouble(request.getParameter("ltemp"));
+		Daten d=new Daten(wtemp,ltemp);
 		
 		DBManager dbman;
-		try {
-			dbman = new DBManager();
-			dbman.speichern(d);
-			dbman.close();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		dbman = new DBManager();
+		dbman.speichern(d);
+		dbman.close();
+
 	}
 
 }

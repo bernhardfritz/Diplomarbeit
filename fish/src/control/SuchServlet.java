@@ -40,19 +40,17 @@ public class SuchServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String suchbegriff=request.getParameter("suchbegriff");
 		DBManager dbman;
+		dbman = new DBManager();
+		List<Daten> erg=null;
 		try {
-			dbman = new DBManager();
-			List<Daten> erg=dbman.suche(suchbegriff);
-			dbman.close();
-			HttpSession session=request.getSession();
-			session.setAttribute("erg", erg);
-			response.sendRedirect("suche.jsp");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			erg = dbman.suche(suchbegriff);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		dbman.close();
+		HttpSession session=request.getSession();
+		session.setAttribute("erg", erg);
+		response.sendRedirect("suche.jsp");
 	}
 }
