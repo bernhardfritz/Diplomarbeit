@@ -8,8 +8,8 @@ public class Testing {
 	 */
 	public static void main(String[] args) {
 		
-		SocketManager sman=new SocketManager();
-		//System.out.println(sman.GETSTATUS(1));
+		/*SocketManager sman=new SocketManager();
+		System.out.println(sman.GETSTATUS(1));
 		sman.SETPORT(1,1);
 		Tool.wait(500);
 		for(int i=0; i<10; i++)
@@ -29,6 +29,15 @@ public class Testing {
 			Tool.wait(500);
 			sman.SETPORT(1,1);
 			Tool.wait(1000);
+		}*/
+		String s[]=Tool.read("C:/fishfiles/fishconfig.txt");
+		for(int i=0; i<s.length; i++)
+		{
+			if(s[i]!=null)
+			{
+				System.out.print(s[i].substring(0,2)+":");
+				System.out.println(s[i].substring(3));
+			}
 		}
 	}
 }

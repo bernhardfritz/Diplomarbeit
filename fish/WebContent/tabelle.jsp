@@ -5,6 +5,9 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<title>Tabelle</title>
+		<%
+			if(session.getAttribute("login")==null||session.getAttribute("login").equals(false)) response.sendRedirect("login.jsp");
+		%>
 	</head>
 	<body>
 		<div id="wrapper">
@@ -13,7 +16,7 @@
 						<center>
 							<a href="index.jsp"><img src="img/button-home-grau.png" /></a>
 							<a href="graph.jsp"><img src="img/button-graph-grau.png" /></a>
-							<a href="tabelle.jsp"><img src="img/button-tabelle.png" /></a>
+							<a href="DBServlet"><img src="img/button-tabelle.png" /></a>
 							<a href="logs.jsp"><img src="img/button-logs-grau.png" /></a>
 							<a href="konfiguration.jsp"><img src="img/button-konfiguration-grau.png" /></a>
 					  </center>
@@ -23,10 +26,6 @@
 				<div id="fenster">
 				</div>
 				<div id="content">
-					<br />
-					<form action="DBServlet">
-					<input type="submit" value="Tabelle erstellen" />
-					</form>
 					<br />
 					<%
 						out.println(session.getAttribute("tabelle"));

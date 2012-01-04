@@ -4,18 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home</title>
+<title>Login</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<%
-	if(session.getAttribute("login")==null||session.getAttribute("login").equals(false)) response.sendRedirect("login.jsp");
-%>
 </head>
 	<body>
 		<div id="wrapper">
 			<div id="banner">
 				<div id="buttons">
 						<center>
-							<a href="index.jsp"><img src="img/button-home.png" /></a>
+							<a href="index.jsp"><img src="img/button-home-grau.png" /></a>
 							<a href="graph.jsp"><img src="img/button-graph-grau.png" /></a>
 							<a href="DBServlet"><img src="img/button-tabelle-grau.png" /></a>
 							<a href="logs.jsp"><img src="img/button-logs-grau.png" /></a>
@@ -27,23 +24,40 @@
 				<div id="fenster">
 				</div>
 				<div id="content">
-					<br />
+				<br />
 					<%
-						if(session.getAttribute("login")!=null&&session.getAttribute("login").equals(true))
+						if(session.getAttribute("login")!=null)
 						{
-							boolean status=false;
-							try {
-								status=InetAddress.getByName("192.168.0.90").isReachable(1000);
-							} catch (UnknownHostException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-							if(status) out.println("AVR-Net-IO-Board connected!");
-							else out.println("AVR-Net-IO-Board not connected...");
+							if(session.getAttribute("login").equals(false)) out.println("Login failed!");
 						}
 					%>
-					<br />
+					<form action="LoginServlet" method="POST">
+						<table border="0" >
+						<tr>
+						<td>
+						Username:
+						</td>
+						<td>
+						<input type="text" name="username" />
+						</td>
+						</tr>
+						<tr>
+						<td>
+						Password:
+						</td>
+						<td>
+						<input type="password" name="password" />
+						</td>
+						</tr>
+						<tr>
+						<td>
+						</td>
+						<td>
+						<input type="submit" name="submit" />
+						</td>
+						</tr>
+						</table>
+					</form>
 					<br />
 		  	</div><!-- Ende content -->
 		  </center>

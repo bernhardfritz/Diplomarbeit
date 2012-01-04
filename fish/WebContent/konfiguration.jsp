@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="control.*,java.io.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,7 +33,11 @@ xmlhttp.onreadystatechange=function()
 xmlhttp.open("GET","ConfigServlet?str="+str,true);
 xmlhttp.send();
 }
+myFunction();
 </script>
+<%
+	if(session.getAttribute("login")==null||session.getAttribute("login").equals(false)) response.sendRedirect("login.jsp");
+%>
 </head>
 <body>
 		<div id="wrapper">
@@ -42,7 +46,7 @@ xmlhttp.send();
 						<center>
 							<a href="index.jsp"><img src="img/button-home-grau.png" /></a>
 							<a href="graph.jsp"><img src="img/button-graph-grau.png" /></a>
-							<a href="tabelle.jsp"><img src="img/button-tabelle-grau.png" /></a>
+							<a href="DBServlet"><img src="img/button-tabelle-grau.png" /></a>
 							<a href="logs.jsp"><img src="img/button-logs-grau.png" /></a>
 							<a href="konfiguration.jsp"><img src="img/button-konfiguration.png" /></a>
 					  </center>
@@ -52,9 +56,15 @@ xmlhttp.send();
 				<div id="fenster">
 				</div>
 				<div id="content">
-					<form action="ConfigServlet2?anzahl=anzahl.value">Anzahl der Fütterungen pro Tag: <input type="text" name="anzahl" onkeyup="myFunction(this.value)"/>
+					<br />
+					<form action="ConfigServlet2?anzahl=anzahl.value">Anzahl der Fütterungen pro Tag: <input type="text" name="anzahl" value="<%
+						File f=new File("C:/fishfiles/fishconfig.txt");
+						if(!f.exists()) out.print("0");
+						else out.print(Tool.read("C:/fishfiles/fishconfig.txt").length);	
+					%>" onkeyup="myFunction(this.value)" onmousemove="myFunction(this.value)"/>
 					<div id="mydiv"></div>
 					</form>		
+					<br />
 		  	</div><!-- Ende content -->
 		  </center>
 		</div><!-- Ende wrapper -->

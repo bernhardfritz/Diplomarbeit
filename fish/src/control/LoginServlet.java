@@ -1,9 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,18 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.DBManager;
-import model.Daten;
 
 /**
- * Servlet implementation class DBServlet
+ * Servlet implementation class LoginServlet
  */
-public class DBServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DBServlet() {
+    public LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,36 +27,36 @@ public class DBServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		new Data();
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		HttpSession session=request.getSession();
+		boolean login = false;
+
 		DBManager dbman;
-		List<Daten> erg=null;
-		dbman = new DBManager();
-		erg=dbman.getAll();
-		dbman.close();
-		String tabelle="<table border=1><th>ID</th><th>Wassertemperatur</th><th>Lufttemperatur</th><th>Zeitpunkt</th><th>Wassertemperatur/Lufttemperatur</th>";
-		if(erg!=null)
-		{
-			for(Daten d:erg)
-			{
-				tabelle+="<tr><td>"+d.getId()+
-						"</td><td>"+d.getWtemp()+
-						"</td><td>"+d.getLtemp()+
-						"</td><td>"+d.getZeitpunkt()+
-						"</td><td>"+Tool.getGauge(d.getWtemp())+"<br />"+Tool.getGauge(d.getLtemp())+
-						"</td></tr>";	
-			}
+		try {
+			dbman = new DBManager();
+			login = dbman.login(username, password);
+			dbman.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		tabelle+="</table>";
-		session.setAttribute("tabelle",tabelle);
-		response.sendRedirect("tabelle.jsp");
+
+		if(login == true) {
+			session.setAttribute("login",true);
+			response.sendRedirect("index.jsp");
+		}
+		else {
+			session.setAttribute("login",false);
+			response.sendRedirect("login.jsp");
+		}
 	}
 
 }

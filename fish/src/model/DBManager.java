@@ -19,6 +19,7 @@ public Connection con;
 	
 	public DBManager()
 	{
+		new Data();
 		try {
 			Class.forName(Data.driver);
 		} catch (ClassNotFoundException e) {
@@ -40,6 +41,24 @@ public Connection con;
 			// TODO Auto-generated catch block
 			Data.logger.error(e.getMessage());
 		}
+	}
+	
+	public boolean login(String username,String password)
+	{
+		String sql="SELECT * FROM users WHERE username=? AND password=?";
+		boolean login=false;
+		try {
+			PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+			ps.setString(1,username);
+			ps.setString(2,password);
+			ResultSet rs=ps.executeQuery();
+			if(rs.next()) login=true;
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
+		}
+		return login;
 	}
 	
 	public void speichern(Daten d)

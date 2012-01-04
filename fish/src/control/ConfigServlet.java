@@ -1,5 +1,6 @@
 package control;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -39,11 +40,12 @@ public class ConfigServlet extends HttpServlet {
 		String stunden="";
 		String minuten="";
 		PrintWriter out=response.getWriter();
+		File f=new File("C:/fishfiles/fishconfig.txt");
 		if(!str.equals(""))
 		{
 			anzahl=new Integer(str);
 		}
-		if(anzahl!=0)
+		if(anzahl>0&&anzahl<=Data.futtermax&&!f.exists())
 		{
 			res+="<br />\n";
 			for(int i=0; i<anzahl; i++)
@@ -75,6 +77,53 @@ public class ConfigServlet extends HttpServlet {
 			}
 			res+="<br />\n";
 			res+="<input type=\"submit\" value=\"Speichern\" />";
+		}
+		if(f.exists())
+		{
+			String s[]=Tool.read("C:/fishfiles/fishconfig.txt");
+			String fstunden[]=new String[s.length];
+			String fminuten[]=new String[s.length];
+			int counter=0;
+			for(String temp:s)
+			{
+				fstunden[counter]=temp.substring(0,2);
+				fminuten[counter]=temp.substring(3);
+				counter++;
+			}
+			res+="<br />\n";
+			for(int i=0; i<s.length; i++)
+			{				
+				res+=(i+1)+". F&uuml;tterung um <select name=\"stunden"+i+"\">\n";
+				for(int j=0; j<=23; j++)
+				{
+					
+					stunden+=j;
+					if(stunden.length()==1)
+					{
+						stunden="0"+j;
+					}
+					if(fstunden[i].equals(stunden)) res+="<option value=\""+stunden+"\" selected=\"selected\">"+stunden+"</option>\n";
+					else res+="<option value=\""+stunden+"\">"+stunden+"</option>\n";
+					stunden="";
+				}
+				res+="</select>:\n";
+				res+="<select name=\"minuten"+i+"\">\n";
+				for(int k=0; k<=59; k++)
+				{
+					minuten+=k;
+					if(minuten.length()==1)
+					{
+						minuten="0"+k;
+					}
+					if(fminuten[i].equals(minuten)) res+="<option value=\""+minuten+"\" selected=\"selected\">"+minuten+"</option>\n";
+					else res+="<option value=\""+minuten+"\">"+minuten+"</option>\n";
+					minuten="";
+				}
+				res+="</select>Uhr.<br />\n";
+			}
+			res+="<br />\n";
+			res+="<input type=\"submit\" value=\"Speichern\" />";
+			
 		}
 		out.println(res);		
 	}

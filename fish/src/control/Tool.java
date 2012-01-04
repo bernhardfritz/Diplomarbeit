@@ -56,7 +56,8 @@ public class Tool {
     
     public static String[] read(String path)
     {
-    	String str[]=new String[99];
+    	new Data();
+    	String str[]=new String[Data.futtermax];
     	try
     	{
     	File file = new File(path);
@@ -76,7 +77,17 @@ public class Tool {
     	{
     		e.printStackTrace();
     	}
-        return str;
+    	int counter=0;
+    	for(int j=0; j<str.length; j++)
+    	{
+    		if(str[j]!=null)counter++;
+    	}
+    	String ret[]=new String[counter];
+    	for(int k=0; k<counter; k++)
+    	{
+    		ret[k]=str[k];
+    	}
+        return ret;
  
     }
     
@@ -272,5 +283,18 @@ public class Tool {
 		String s=""+i;
 		if(s.length()<2) s="0"+s;
 		return s;
+    }
+    
+    public static String getGauge(double temperatur)
+    {
+    	int temp=(int)round(temperatur,0);
+    	int width=temp*10;
+    	String color;
+    	if(temp<20) color = "RoyalBlue";
+		else if(temp>30) color = "Red";
+		else color = "LawnGreen";
+    	String gauge;
+		gauge =	"<img src=\"img/transparent.png\" height=15 width=" + width + " alt=\"" + temp + "\" style=\"background-color:" + color +"\" />";
+    	return gauge;
     }
 }

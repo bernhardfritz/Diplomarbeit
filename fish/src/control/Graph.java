@@ -24,8 +24,8 @@ import org.jfree.data.time.TimeSeriesCollection;
 public class Graph extends Canvas implements WindowListener{
 	
 	private static final long serialVersionUID = -170906011521620204L;
-	BufferedImage bi;
-	Image img;
+	public static BufferedImage bi;
+	public static Image img;
 	BufferStrategy strategy;
 	JFrame container;
 	JPanel panel;
@@ -47,8 +47,8 @@ public class Graph extends Canvas implements WindowListener{
 	}
 	
 	public static void main(String[] args) throws IOException{
-		Graph gt = new Graph();
-		gt.init();
+		Graph gr = new Graph();
+		gr.init();
 		TimeSeries tsw = new TimeSeries("Wassertemperatur in °C", Second.class);
 		TimeSeries tsl = new TimeSeries("Lufttemperatur in °C", Second.class);
 		tsw.setMaximumItemCount(10);
@@ -80,9 +80,9 @@ public class Graph extends Canvas implements WindowListener{
 				true,
 				true,
 				false);
-				gt.bi=chart.createBufferedImage(800,400);
-				gt.img=gt.bi;
-				gt.draw();
+				gr.bi=chart.createBufferedImage(800,400);
+				gr.img=gr.bi;
+				gr.draw();
 				previous=current;
 			}
 		}
@@ -138,4 +138,3 @@ public class Graph extends Canvas implements WindowListener{
 		
 	}
 }
-

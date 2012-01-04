@@ -14,6 +14,7 @@ public class Data {
 	public static String table;
 	public static String netioip;
 	public static int netioport;
+	public static int futtermax;
 	public static double r;
 	public static double u;
 	public static double k;
@@ -39,6 +40,7 @@ public class Data {
 		table = prop.getProperty("table");
 		netioip = prop.getProperty("netioip");
 		netioport = Integer.parseInt(prop.getProperty("netioport"));
+		futtermax = Integer.parseInt(prop.getProperty("futtermax"));
 		r = Double.parseDouble(prop.getProperty("r"));
 		u = Double.parseDouble(prop.getProperty("u"));
 		k = Double.parseDouble(prop.getProperty("k"));

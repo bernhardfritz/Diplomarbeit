@@ -5,6 +5,9 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<title>Graph</title>
+		<%
+			if(session.getAttribute("login")==null||session.getAttribute("login").equals(false)) response.sendRedirect("login.jsp");
+		%>
 	</head>
 	<body>
 		<div id="wrapper">
@@ -13,7 +16,7 @@
 						<center>
 							<a href="index.jsp"><img src="img/button-home-grau.png" /></a>
 							<a href="graph.jsp"><img src="img/button-graph.png" /></a>
-							<a href="tabelle.jsp"><img src="img/button-tabelle-grau.png" /></a>
+							<a href="DBServlet"><img src="img/button-tabelle-grau.png" /></a>
 							<a href="logs.jsp"><img src="img/button-logs-grau.png" /></a>
 							<a href="konfiguration.jsp"><img src="img/button-konfiguration-grau.png" /></a>
 					  </center>
@@ -24,16 +27,7 @@
 				</div>
 				<div id="content">
 					<p>
-						<img src="http://localhost:8080/fish/fishfiles/graph.png" />
-						<form action="AquariumServlet?period=this.form.period.options[this.form.period.selectedIndex].value">
-						<select name="period">
-						<option value="Stunde">Stunde</option>
-						<option value="Tag">Tag</option>
-						<option value="Woche">Woche</option>
-						<option value="Monat">Monat</option>
-						</select>
-						<input type="submit" value="OK" />
-						</form>
+						<iframe src="fishfiles/graph.png" width="800" height="400" frameBorder=0 />
 					</p>
 		  	</div><!-- Ende content -->
 		  </center>
