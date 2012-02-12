@@ -8,11 +8,15 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import model.SocketManager;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -45,7 +49,6 @@ public class Graph2 extends JFrame{
 		int current=d.getSeconds();
 		int previous=current;
 		System.out.println(d.toString());
-		int i=-1;
 		while(true) {
 			while(current==previous) {
 				d=new Date();
@@ -54,9 +57,14 @@ public class Graph2 extends JFrame{
 			if(current!=previous)
 			{
 				System.out.println(d.toString());
-				i++;
-				tsw.addOrUpdate(new Second(), i);
-				tsl.addOrUpdate(new Second(), i);
+				new Data();
+				SocketManager sman=new SocketManager();
+				String s=sman.GETADC(1);
+	        	int i=Integer.parseInt(s.trim());
+	        	double v=Tool.getVoltage(i);
+	    		double t=Tool.getTemperature(v);
+				tsw.addOrUpdate(new Second(), t);
+				tsl.addOrUpdate(new Second(), t);
 				TimeSeriesCollection dataset = new TimeSeriesCollection();
 				dataset.addSeries(tsw);
 				dataset.addSeries(tsl);
@@ -70,6 +78,7 @@ public class Graph2 extends JFrame{
 				false);
 				gr2.bi=chart.createBufferedImage(800,400);
 				previous=current;
+				ImageIO.write(gr2.bi,"png",new File(Data.fishgraph));
 				gr2.repaint();
 			}
 		}

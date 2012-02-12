@@ -27,6 +27,7 @@ public class Main {
 				Tool.wait(5000);
 			}
 			Data.logger.info("AVR-Net-IO connected!");
+			GraphThread gt=new GraphThread();
 			while(fetching)
 			{
 				current=Tool.IgetTime("m");
@@ -38,7 +39,7 @@ public class Main {
 					Data.logger.info("Daten wurden erfolgreich in die Datenbank eingetragen!");
 					if(feeding)
 					{
-						str=Tool.read("C:/fishfiles/fishconfig.txt");
+						str=Tool.read(Data.fishconfig);
 						for(int i=0; i<str.length; i++)
 						{
 							if(str[i]!=null) line=str[i];

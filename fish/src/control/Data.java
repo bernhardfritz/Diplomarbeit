@@ -13,6 +13,9 @@ public class Data {
 	public static String pass;
 	public static String table;
 	public static String netioip;
+	public static String fishconfig;
+	public static String fishgraph;
+	public static String fishprefix;
 	public static int netioport;
 	public static int futtermax;
 	public static double r;
@@ -39,6 +42,9 @@ public class Data {
 		pass = prop.getProperty("pass");
 		table = prop.getProperty("table");
 		netioip = prop.getProperty("netioip");
+		fishconfig = prop.getProperty("fishconfig");
+		fishgraph = prop.getProperty("fishgraph");
+		fishprefix = prop.getProperty("fishprefix");
 		netioport = Integer.parseInt(prop.getProperty("netioport"));
 		futtermax = Integer.parseInt(prop.getProperty("futtermax"));
 		r = Double.parseDouble(prop.getProperty("r"));

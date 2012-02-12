@@ -1,27 +1,24 @@
 package control;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class GraphServlet
+ * Servlet implementation class TestServlet
  */
-public class GraphServlet extends HttpServlet {
+public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GraphServlet() {
+    public TestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,13 +34,10 @@ public class GraphServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		BufferedImage bi=ImageIO.read(new File(Data.fishgraph));
-		ImageIO.write(bi,"png",baos);
-		byte[] bytesOut = baos.toByteArray();
-		response.setContentType("image/png");
-		response.setContentLength(bytesOut.length);
-		response.getOutputStream().write(bytesOut);
+		new Data();
+		for(String s:Tool.readFishConfig()) {
+			System.out.println(s);
+		}
 	}
 
 }

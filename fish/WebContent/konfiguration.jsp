@@ -33,7 +33,11 @@ xmlhttp.onreadystatechange=function()
 xmlhttp.open("GET","ConfigServlet?str="+str,true);
 xmlhttp.send();
 }
-myFunction();
+var currentlength=<%
+if(!Tool.fishConfigExists()) out.print("0");
+else out.print(Tool.readFishConfig().length);	
+%>;
+myFunction(currentlength);
 </script>
 <%
 	if(session.getAttribute("login")==null||session.getAttribute("login").equals(false)) response.sendRedirect("login.jsp");
@@ -57,11 +61,13 @@ myFunction();
 				</div>
 				<div id="content">
 					<br />
-					<form action="ConfigServlet2?anzahl=anzahl.value">Anzahl der Fütterungen pro Tag: <input type="text" name="anzahl" value="<%
-						File f=new File("C:/fishfiles/fishconfig.txt");
-						if(!f.exists()) out.print("0");
-						else out.print(Tool.read("C:/fishfiles/fishconfig.txt").length);	
-					%>" onkeyup="myFunction(this.value)" onmousemove="myFunction(this.value)"/>
+					<form action="ConfigServlet2?anzahl=anzahl.value">Anzahl der Fütterungen pro Tag: <input type="text" name="anzahl" id="anzahl" value="" onkeyup="myFunction(this.value)"/>
+					<script type="text/javascript">
+					var inputObj = document.getElementById("anzahl"); 
+					if( inputObj ) { 
+					inputObj.value = currentlength; 
+					} 
+					</script>
 					<div id="mydiv"></div>
 					</form>		
 					<br />

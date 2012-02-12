@@ -1,0 +1,8 @@
+TODO 12.02.2012
+
++ C:\fishfiles\ auf Projektpfad ändern
++ perfekten Widerstand für Sensor finden
+- Double in Datenbank auf Float ändern
++ AJAX verbessern
+
+Applet funktioniert nicht, da man vom Applet aus keine SocketVerbindung öffnen darf

@@ -52,7 +52,7 @@ public class GraphTest extends JFrame{
 			if(current!=previous)
 			{
 				//Thread.sleep(250);
-				gt.bi=ImageIO.read(new File("C:/fishfiles/graph.png"));
+				gt.bi=ImageIO.read(new File(Data.fishgraph));
 				previous=current;
 				gt.repaint();
 			}

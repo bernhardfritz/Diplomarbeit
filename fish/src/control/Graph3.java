@@ -63,7 +63,7 @@ public class Graph3 {
 				true,
 				false);
 				gr3.ri=chart.createBufferedImage(800,400);
-				ImageIO.write(gr3.ri, "png", new java.io.File("C:/fishfiles/graph.png"));
+				ImageIO.write(gr3.ri, "png", new java.io.File(Data.fishprefix+Data.fishgraph));
 				previous=current;
 			}
 		}

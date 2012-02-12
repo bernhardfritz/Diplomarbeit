@@ -33,7 +33,7 @@ public class Feeding {
 				current=Tool.IgetTime("m");
 				if(current!=previous)
 				{
-					str=Tool.read("C:/fishfiles/fishconfig.txt");
+					str=Tool.read(Data.fishconfig);
 					for(int i=0; i<str.length; i++)
 					{
 						if(str[i]!=null) line=str[i];

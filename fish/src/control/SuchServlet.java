@@ -42,12 +42,7 @@ public class SuchServlet extends HttpServlet {
 		DBManager dbman;
 		dbman = new DBManager();
 		List<Daten> erg=null;
-		try {
-			erg = dbman.suche(suchbegriff);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		erg = dbman.suche(suchbegriff);
 		dbman.close();
 		HttpSession session=request.getSession();
 		session.setAttribute("erg", erg);

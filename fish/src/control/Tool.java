@@ -30,6 +30,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.time.Hour;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 
@@ -91,12 +92,38 @@ public class Tool {
  
     }
     
+    public static String[] readFishConfig() {
+    	new Data();
+    	if(new File(Data.fishconfig).exists()) return read(Data.fishconfig);
+    	else return read(Data.fishprefix+Data.fishconfig);
+    }
+    
+    public static void writeFishConfig(String[] str) {
+    	new Data();
+    	try {
+    		if(new File(Data.fishconfig).exists()) write(Data.fishconfig,str);
+        	else write(Data.fishprefix+Data.fishconfig,str);
+    		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    public static boolean fishConfigExists() {
+    	new Data();
+    	boolean exists=false;
+    	if(new File(Data.fishconfig).exists()||new File(Data.fishprefix+Data.fishconfig).exists()) exists=true;
+    	return exists;
+    }
+    
     public static double getTemperature(double voltage)
     {
     	double rsensor = (Data.r*voltage)/(Data.u-voltage);
     	double temp = (rsensor-Data.d)/Data.k;
     	temp+=Data.korrektur;
-    	return round(temp,2);
+    	//return round(temp,2);
+    	return temp;
     }
     
     public static double round(double d, int decimalPlace){
@@ -296,5 +323,54 @@ public class Tool {
     	String gauge;
 		gauge =	"<img src=\"img/transparent.png\" height=15 width=" + width + " alt=\"" + temp + "\" style=\"background-color:" + color +"\" />";
     	return gauge;
+    }
+    
+    public static void createGraph() {
+    	BufferedImage bi;         		
+   		TimeSeries tsw = new TimeSeries("Wassertemperatur in °C", Minute.class);
+    	TimeSeries tsl = new TimeSeries("Lufttemperatur in °C", Minute.class);
+    	tsw.setMaximumItemCount(60);
+    	tsl.setMaximumItemCount(60);
+    	Date d=new Date();
+    	int current=d.getMinutes();
+    	int previous=current;
+    	System.out.println(d.toString());
+    	while(true) {
+    		while(current==previous) {
+    			d=new Date();
+    			current=d.getMinutes();
+    		}
+    		if(current!=previous)
+    		{
+    			System.out.println(d.toString());
+    			new Data();
+    			SocketManager sman=new SocketManager();
+    			String s=sman.GETADC(1);
+    	       	int i=Integer.parseInt(s.trim());
+    	       	double v=Tool.getVoltage(i);
+    	   		double t=Tool.getTemperature(v);
+    			tsw.addOrUpdate(new Minute(), t);
+    			tsl.addOrUpdate(new Minute(), t);
+    			TimeSeriesCollection dataset = new TimeSeriesCollection();
+    			dataset.addSeries(tsw);
+    			dataset.addSeries(tsl);
+    			JFreeChart chart = ChartFactory.createTimeSeriesChart(
+    			"Wasser- und Lufttemperaturgraph",
+    			"Sekunden",
+    			"°C",
+    			dataset,
+    			true,
+    			true,
+    			false);
+    			bi=chart.createBufferedImage(800,400);
+    			previous=current;
+    			try {
+					ImageIO.write(bi,"png",new File(Data.fishgraph));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    	}
     }
 }

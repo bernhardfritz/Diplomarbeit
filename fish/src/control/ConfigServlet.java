@@ -34,18 +34,19 @@ public class ConfigServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		new Data();
 		String str=request.getParameter("str");
 		int anzahl=0;
 		String res="";
 		String stunden="";
 		String minuten="";
 		PrintWriter out=response.getWriter();
-		File f=new File("C:/fishfiles/fishconfig.txt");
+		int currentlength=Tool.readFishConfig().length;
 		if(!str.equals(""))
 		{
 			anzahl=new Integer(str);
 		}
-		if(anzahl>0&&anzahl<=Data.futtermax&&!f.exists())
+		if((anzahl>0&&anzahl<=Data.futtermax&&anzahl!=currentlength)||!Tool.fishConfigExists())
 		{
 			res+="<br />\n";
 			for(int i=0; i<anzahl; i++)
@@ -78,9 +79,9 @@ public class ConfigServlet extends HttpServlet {
 			res+="<br />\n";
 			res+="<input type=\"submit\" value=\"Speichern\" />";
 		}
-		if(f.exists())
+		if(anzahl==currentlength&&Tool.fishConfigExists())
 		{
-			String s[]=Tool.read("C:/fishfiles/fishconfig.txt");
+			String s[]=Tool.readFishConfig();
 			String fstunden[]=new String[s.length];
 			String fminuten[]=new String[s.length];
 			int counter=0;

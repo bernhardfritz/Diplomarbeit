@@ -33,7 +33,7 @@
 						{
 							boolean status=false;
 							try {
-								status=InetAddress.getByName("192.168.0.90").isReachable(1000);
+								status=InetAddress.getByName("192.168.0.90").isReachable(5000);
 							} catch (UnknownHostException e) {
 								e.printStackTrace();
 							} catch (IOException e) {
