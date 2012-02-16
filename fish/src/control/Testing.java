@@ -1,6 +1,5 @@
 package control;
 
-import model.*;
 public class Testing {
 
 	/**
@@ -41,7 +40,7 @@ public class Testing {
 		}*/
 		new Data();
 		for(int i=670; i<=700; i++) {
-			double d=Tool.getVoltage(i);
+			float d=Tool.getVoltage(i);
 			System.out.println(d);
 			System.out.println(Tool.getTemperature(d));
 		}

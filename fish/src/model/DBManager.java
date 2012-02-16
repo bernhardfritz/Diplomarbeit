@@ -1,16 +1,10 @@
 package model;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
-import com.sun.jmx.snmp.Timestamp;
+import java.sql.*;
 
 import control.*;
 
@@ -33,6 +27,17 @@ public Connection con;
 		}
 	}
 	
+	public void createDB() throws SQLException {
+		Statement stat = con.createStatement();
+		stat.executeUpdate("drop table if exists sensordaten;");
+		stat.executeUpdate("create table sensordaten ( id integer primary key autoincrement, wassertemperatur float default 0, lufttemperatur float default 0, zeitpunkt timestamp default current_timestamp);");
+		stat.executeUpdate("drop table if exists users;");
+		stat.executeUpdate("create table users ( id integer primary key autoincrement, username varchar(8) not null, password varchar(32) not null);");
+		PreparedStatement prep = con.prepareStatement("insert into users (username, password) values (?, ?);");
+		prep.setString(1, "bernhard");
+		prep.setString(2, Tool.md5("1234"));
+	}
+	
 	public void close()
 	{
 		try {
@@ -48,9 +53,9 @@ public Connection con;
 		String sql="SELECT * FROM users WHERE username=? AND password=?";
 		boolean login=false;
 		try {
-			PreparedStatement ps=(PreparedStatement) con.prepareStatement(sql);
+			PreparedStatement ps=con.prepareStatement(sql);
 			ps.setString(1,username);
-			ps.setString(2,password);
+			ps.setString(2,Tool.md5(password));
 			ResultSet rs=ps.executeQuery();
 			if(rs.next()) login=true;
 			rs.close();
@@ -63,11 +68,11 @@ public Connection con;
 	
 	public void speichern(Daten d)
 	{
-		String sql="INSERT INTO "+Data.table+"(wtemp,ltemp) VALUES(?,?)";
+		String sql="INSERT INTO "+Data.table+"(wassertemperatur,lufttemperatur) VALUES(?,?)";
 		try {
-			PreparedStatement ps = (PreparedStatement) con.prepareStatement(sql);
-			ps.setDouble(1,d.getWtemp());
-			ps.setDouble(2,d.getLtemp());
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setFloat(1,d.getWtemp());
+			ps.setFloat(2,d.getLtemp());
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -78,14 +83,14 @@ public Connection con;
 	public List<Daten> suche(String s)
 	{
 		List<Daten> erg=new ArrayList<Daten>();
-		String sql="SELECT * FROM "+Data.table+" WHERE wtemp LIKE '%?%' OR ltemp LIKE '%?%' OR zeitpunkt LIKE '%?%'";
+		String sql="SELECT * FROM "+Data.table+" WHERE wassertemperatur LIKE '%?%' OR lufttemperatur LIKE '%?%' OR zeitpunkt LIKE '%?%'";
 		try {
-			PreparedStatement ps=(PreparedStatement) con.createStatement();
-			ResultSet rs=ps.executeQuery();
+			PreparedStatement ps=con.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery(sql);
 			while(rs.next())
 			{
-				double wtemp=rs.getDouble(1);
-				double ltemp=rs.getDouble(2);
+				float wtemp=rs.getFloat(1);
+				float ltemp=rs.getFloat(2);
 				Date zeitpunkt=rs.getDate(3);
 				Daten d=new Daten(wtemp,ltemp,zeitpunkt);
 				erg.add(d);
@@ -102,13 +107,13 @@ public Connection con;
 	{
 		List<Daten> erg=new ArrayList<Daten>();
 		try {
-			Statement stmt=(Statement) con.createStatement();
+			Statement stmt=con.createStatement();
 			ResultSet rs=stmt.executeQuery(sql);
 			while(rs.next())
 			{
 				int id=rs.getInt("id");
-				double wtemp=rs.getDouble("wtemp");
-				double ltemp=rs.getDouble("ltemp");
+				float wtemp=rs.getFloat("wassertemperatur");
+				float ltemp=rs.getFloat("lufttemperatur");
 				Date zeitpunkt=rs.getDate("zeitpunkt");
 				Daten d=new Daten(id,wtemp,ltemp,zeitpunkt);
 				erg.add(d);
@@ -125,7 +130,7 @@ public Connection con;
 	{
 		int id=0;
 		try {
-			Statement stmt=(Statement) con.createStatement();
+			Statement stmt=con.createStatement();
 			ResultSet rs=stmt.executeQuery(sql);
 			while(rs.next())
 			{
@@ -145,13 +150,13 @@ public Connection con;
 		List<Daten> erg=new ArrayList<Daten>();
 		String sql="SELECT * FROM "+Data.table;
 		try {
-			Statement ps=(Statement) con.createStatement();
+			Statement ps=con.createStatement();
 			ResultSet rs=ps.executeQuery(sql);
 			while(rs.next())
 			{
 				int id=rs.getInt(1);
-				double wtemp=rs.getDouble(2);
-				double ltemp=rs.getDouble(3);
+				float wtemp=rs.getFloat(2);
+				float ltemp=rs.getFloat(3);
 				java.sql.Timestamp sqlzeitpunkt=rs.getTimestamp(4);
 				java.util.Date zeitpunkt=new java.util.Date(sqlzeitpunkt.getTime());
 				Daten d=new Daten(id,wtemp,ltemp,zeitpunkt);

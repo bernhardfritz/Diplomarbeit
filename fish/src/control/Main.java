@@ -27,7 +27,7 @@ public class Main {
 				Tool.wait(5000);
 			}
 			Data.logger.info("AVR-Net-IO connected!");
-			GraphThread gt=new GraphThread();
+			//new GraphThread();
 			while(fetching)
 			{
 				current=Tool.IgetTime("m");

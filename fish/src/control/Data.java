@@ -18,11 +18,12 @@ public class Data {
 	public static String fishprefix;
 	public static int netioport;
 	public static int futtermax;
-	public static double r;
-	public static double u;
-	public static double k;
-	public static double d;
-	public static double korrektur;
+	public static float m;
+	public static float r;
+	public static float u;
+	public static float k;
+	public static float d;
+	public static float korrektur;
 	public static Logger logger;
 	
 	public Data()
@@ -47,11 +48,12 @@ public class Data {
 		fishprefix = prop.getProperty("fishprefix");
 		netioport = Integer.parseInt(prop.getProperty("netioport"));
 		futtermax = Integer.parseInt(prop.getProperty("futtermax"));
-		r = Double.parseDouble(prop.getProperty("r"));
-		u = Double.parseDouble(prop.getProperty("u"));
-		k = Double.parseDouble(prop.getProperty("k"));
-		d = Double.parseDouble(prop.getProperty("d"));
-		korrektur = Double.parseDouble(prop.getProperty("korrektur"));
+		m = Float.parseFloat(prop.getProperty("m"));
+		r = Float.parseFloat(prop.getProperty("r"));
+		u = Float.parseFloat(prop.getProperty("u"));
+		k = Float.parseFloat(prop.getProperty("k"));
+		d = Float.parseFloat(prop.getProperty("d"));
+		korrektur = Float.parseFloat(prop.getProperty("korrektur"));
 		logger.info("server.properties eingelesen!");
 	}
 }

@@ -1,9 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.util.Calendar;
-
-import javax.annotation.Resources;
 
 public class ToolTesting {
 
@@ -18,7 +15,7 @@ public class ToolTesting {
 		System.out.println(cal.getTime().toString());*/
 		//Tool.feed(1);
 		//Main.main(null);
-		new Data();
+		/*new Data();
 		String text[]=Tool.readFishConfig();
 		int length=text.length;
 		System.out.println(length);
@@ -27,7 +24,8 @@ public class ToolTesting {
 			System.out.println(s);
 		}
 		String text2[]={"14:03","14:04","14:05"};
-		Tool.writeFishConfig(text2);
+		Tool.writeFishConfig(text2);*/
+		System.out.println(Tool.md5("bernhard"));
 	}
 
 }

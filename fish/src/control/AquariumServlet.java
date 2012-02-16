@@ -32,7 +32,7 @@ public class AquariumServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String period=request.getParameter("period");
+		//String period=request.getParameter("period");
 		//Tool.createImage2(period);
 		response.sendRedirect("http://localhost:8080/fish/aquarium.jsp");
 	}

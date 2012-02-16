@@ -1,7 +1,5 @@
 package control;
 
-import java.io.IOException;
-
 import model.SocketManager;
 
 public class TestFetching {

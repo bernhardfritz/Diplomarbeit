@@ -1,0 +1,24 @@
++Datenbank verändern
+id(int)|wassertemperatur(float)|lufttemperatur(float)|zeitpunkt(datetime)
+
+create database fish;
+
+use fish;
+
+create table sensordaten
+(
+id integer primary key auto_increment,
+wassertemperatur float default 0,
+lufttemperatur float default 0,
+zeitpunkt timestamp default now()
+);
+
+create table users
+(
+id integer primary key auto_increment,
+username varchar(8) not null,
+password varchar(32) not null
+);
+
+insert into users(username,password)
+values ('bernhard',md5('1234'));

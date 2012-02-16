@@ -6,24 +6,24 @@ import java.util.Date;
 
 public class Daten {
 	int id;
-	double wtemp;            //Wassertemperatur in Celsius
-	double ltemp;			 //Lufttemperatur in Celsius
+	float wtemp;            //Wassertemperatur in Celsius
+	float ltemp;			 //Lufttemperatur in Celsius
 	Date zeitpunkt;		 //Uhrzeit und Datum als datetime
 	
-	public Daten(double wtemp, double ltemp) {
+	public Daten(float wtemp, float ltemp) {
 		super();
 		this.wtemp = wtemp;
 		this.ltemp = ltemp;	    
 	}
 	
-	public Daten(double wtemp, double ltemp,Date zeitpunkt) {
+	public Daten(float wtemp, float ltemp,Date zeitpunkt) {
 		super();
 		this.wtemp = wtemp;
 		this.ltemp = ltemp;
 		this.zeitpunkt = zeitpunkt;
 	}
 	
-	public Daten(int id, double wtemp, double ltemp, Date zeitpunkt) {
+	public Daten(int id, float wtemp, float ltemp, Date zeitpunkt) {
 		super();
 		this.id = id;
 		this.wtemp = wtemp;
@@ -39,19 +39,19 @@ public class Daten {
 		this.id = id;
 	}
 
-	public double getWtemp() {
+	public float getWtemp() {
 		return wtemp;
 	}
 
-	public void setWtemp(double wtemp) {
+	public void setWtemp(float wtemp) {
 		this.wtemp = wtemp;
 	}
 
-	public double getLtemp() {
+	public float getLtemp() {
 		return ltemp;
 	}
 
-	public void setLtemp(double ltemp) {
+	public void setLtemp(float ltemp) {
 		this.ltemp = ltemp;
 	}
 

@@ -1,0 +1,60 @@
+Themen:
+
+-Software
+
+ -JAVA
+ --Was ist JAVA?
+ --Warum JAVA?
+ --Vor- und Nachteile
+ --Alternativen
+ --Code
+ ---DBManager
+ ---SocketManager
+ ---Wie funktioniert das Einlesen von Sensorwerten?
+ ---Wie funktioniert das Schreiben/Lesen von Dateien?
+ ---Servlets
+ ---Log4J
+ ---Property-Files
+ ---jFreeCharts
+ ---...
+ --Apache Tomcat Server
+ 
+ -MYSQL
+ --Datenbankaufbau (.dia-file)
+ --Statements
+ 
+ -HTML
+ --Was ist HTML?
+ --Webinterface
+ ---Warum?
+ ---Design
+ ---Temperaturfeature (Tabelle mit Farben)
+ 
+ -AJAX
+ --Was ist AJAX?
+ --Wie funktioniert AJAX?
+ --Anwendungsgebiet in Webinterface
+ 
+-Hardware
+
+ -AVR-NetIO-Board
+ --Was ist das?
+ --Funktionsumfang
+ --Alternativen
+ --Wozu wird das NetIO verwendet?
+ 
+ -Relaiskarte K8IO
+ --Was ist das?
+ --Funktionsumfang
+ --Alternativen
+ --Wozu wird das K8IO verwendet?
+ 
+ -Temperatursensor KTY-222
+ --
+ 
+ --Webcam MoCoWeb
+ 
+ -Elektronik
+ --Löten
+ --Verkabeln
+ --Sensorschaltung

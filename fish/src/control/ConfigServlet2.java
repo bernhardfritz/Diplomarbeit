@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +32,6 @@ public class ConfigServlet2 extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out=response.getWriter();
 		String str[]=new String[99];
 		int anzahl=new Integer(request.getParameter("anzahl"));
 		for(int i=0; i<anzahl; i++)

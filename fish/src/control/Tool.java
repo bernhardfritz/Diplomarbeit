@@ -7,30 +7,24 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.net.UnknownHostException;
-import java.sql.SQLException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Properties;
 
 import javax.imageio.ImageIO;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.time.Hour;
 import org.jfree.data.time.Minute;
-import org.jfree.data.time.RegularTimePeriod;
-import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 
@@ -117,26 +111,26 @@ public class Tool {
     	return exists;
     }
     
-    public static double getTemperature(double voltage)
+    public static float getTemperature(float voltage)
     {
-    	double rsensor = (Data.r*voltage)/(Data.u-voltage);
-    	double temp = (rsensor-Data.d)/Data.k;
+    	float rsensor = (Data.r*voltage)/(Data.u-voltage);
+    	float temp = (rsensor-Data.d)/Data.k;
     	temp+=Data.korrektur;
-    	//return round(temp,2);
-    	return temp;
+    	return round(temp,2);
     }
     
-    public static double round(double d, int decimalPlace){
-        BigDecimal bd = new BigDecimal(Double.toString(d));
+    public static float round(float d, int decimalPlace){
+        BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace,BigDecimal.ROUND_HALF_UP);
-        return bd.doubleValue();
+        return bd.floatValue();
     }
     
-    public static double getVoltage(int i)
+    public static float getVoltage(int i)
     {
-    	double d=0.0;
-    	double e=i;
+    	float d=0.0f;
+    	float e=i;
     	d=(5*e)/1024;
+    	d/=Data.m;
     	return d;	
     }
     
@@ -229,14 +223,14 @@ public class Tool {
     {
     	String s="";
     	int i;
-    	double v;
-    	double t;
+    	float v;
+    	float t;
     	s=sman.GETADC(adc);
     	i=Integer.parseInt(s);
 		v=Tool.getVoltage(i);
 		t=Tool.getTemperature(v);
-    	double wtemp=t;
-    	double ltemp=t;
+    	float wtemp=t;
+    	float ltemp=t;
     	Daten d=new Daten(wtemp,ltemp);
     	DBManager dbman=new DBManager();
 		dbman.speichern(d);
@@ -312,10 +306,10 @@ public class Tool {
 		return s;
     }
     
-    public static String getGauge(double temperatur)
+    public static String getGauge(float temperatur)
     {
     	int temp=(int)round(temperatur,0);
-    	int width=temp*10;
+    	int width=(int) ((temp-10)*Math.log(temp)*5);
     	String color;
     	if(temp<20) color = "RoyalBlue";
 		else if(temp>30) color = "Red";
@@ -325,7 +319,28 @@ public class Tool {
     	return gauge;
     }
     
-    public static void createGraph() {
+    public static String md5(String input){
+        String res = "";
+        try {
+            MessageDigest algorithm = MessageDigest.getInstance("MD5");
+            algorithm.reset();
+            algorithm.update(input.getBytes());
+            byte[] md5 = algorithm.digest();
+            String tmp = "";
+            for (int i = 0; i < md5.length; i++) {
+                tmp = (Integer.toHexString(0xFF & md5[i]));
+                if (tmp.length() == 1) {
+                    res += "0" + tmp;
+                } else {
+                    res += tmp;
+                }
+            }
+        } catch (NoSuchAlgorithmException ex) {}
+        return res;
+    }
+    
+    @SuppressWarnings("deprecation")
+	public static void createGraph() {
     	BufferedImage bi;         		
    		TimeSeries tsw = new TimeSeries("Wassertemperatur in °C", Minute.class);
     	TimeSeries tsl = new TimeSeries("Lufttemperatur in °C", Minute.class);
@@ -347,8 +362,8 @@ public class Tool {
     			SocketManager sman=new SocketManager();
     			String s=sman.GETADC(1);
     	       	int i=Integer.parseInt(s.trim());
-    	       	double v=Tool.getVoltage(i);
-    	   		double t=Tool.getTemperature(v);
+    	       	float v=Tool.getVoltage(i);
+    	   		float t=Tool.getTemperature(v);
     			tsw.addOrUpdate(new Minute(), t);
     			tsl.addOrUpdate(new Minute(), t);
     			TimeSeriesCollection dataset = new TimeSeriesCollection();

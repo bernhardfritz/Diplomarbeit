@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,8 +30,8 @@ public class DatenServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		double wtemp=Double.parseDouble(request.getParameter("wtemp"));
-		double ltemp=Double.parseDouble(request.getParameter("ltemp"));
+		float wtemp=Float.parseFloat(request.getParameter("wtemp"));
+		float ltemp=Float.parseFloat(request.getParameter("ltemp"));
 		Daten d=new Daten(wtemp,ltemp);
 		
 		DBManager dbman;

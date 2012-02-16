@@ -1,7 +1,5 @@
 package control;
 
-import model.DBManager;
-import model.Daten;
 import model.SocketManager;
 
 public class TemperaturTest {
@@ -14,16 +12,17 @@ public class TemperaturTest {
 		SocketManager sman=new SocketManager();
 		String s="";
     	int i;
-    	double v;
-    	double t;
-    	System.out.println("Integer\tVoltage\t\tTemperature");
+    	float v;
+    	float t;
+    	int counter=0;
+    	System.out.println("Counter\tInteger\tVoltage\t\tTemperature");
     	while(true) {
     		s=sman.GETADC(1);
         	i=Integer.parseInt(s.trim());
         	v=Tool.getVoltage(i);
     		t=Tool.getTemperature(v);
-        	System.out.println(i+"\t"+v+"\t"+t);
-        	Tool.wait(1000);
+        	System.out.println(counter+++"\t"+i+"\t"+v+"\t"+t);
+        	Tool.wait(500);
     	}
     	
 	}

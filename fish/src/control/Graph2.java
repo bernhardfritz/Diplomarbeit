@@ -1,12 +1,6 @@
 package control;
 
-import java.awt.Canvas;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +8,6 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import model.SocketManager;
 
@@ -39,6 +32,7 @@ public class Graph2 extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws IOException{
 		Graph2 gr2 = new Graph2();
 		TimeSeries tsw = new TimeSeries("Wassertemperatur in °C", Second.class);
@@ -61,8 +55,8 @@ public class Graph2 extends JFrame{
 				SocketManager sman=new SocketManager();
 				String s=sman.GETADC(1);
 	        	int i=Integer.parseInt(s.trim());
-	        	double v=Tool.getVoltage(i);
-	    		double t=Tool.getTemperature(v);
+	        	float v=Tool.getVoltage(i);
+	    		float t=Tool.getTemperature(v);
 				tsw.addOrUpdate(new Second(), t);
 				tsl.addOrUpdate(new Second(), t);
 				TimeSeriesCollection dataset = new TimeSeriesCollection();

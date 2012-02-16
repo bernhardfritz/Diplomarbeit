@@ -27,7 +27,7 @@
 				</div>
 				<div id="content">
 					<p>
-						<iframe src="fishgraph/fishgraph.png" width="800" height="400" frameBorder=0 />
+						<iframe src="fishgraph/fishgraph.png" width="800" height="400" frameBorder=0></iframe>
 					</p>
 		  	</div><!-- Ende content -->
 		  </center>

@@ -1,23 +1,11 @@
 package control;
 
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-import org.apache.tomcat.jni.File;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.time.Second;
@@ -29,6 +17,7 @@ public class Graph3 {
 	
 	public RenderedImage ri;
 	
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws IOException{
 		Graph3 gr3 = new Graph3();
 		TimeSeries tsw = new TimeSeries("Wassertemperatur in °C", Second.class);
