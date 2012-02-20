@@ -9,6 +9,7 @@ Themen:
  --Alternativen
  --Code
  ---DBManager
+ ---Wie funktioniert das Aufbauen einer Datenbankverbindung in Java?
  ---SocketManager
  ---Wie funktioniert das Einlesen von Sensorwerten?
  ---Wie funktioniert das Schreiben/Lesen von Dateien?
@@ -64,3 +65,9 @@ Themen:
  --Funktionsumfang
  --Alternativen?
  --Wie funktioniert GitHub?
+ 
+ -Eclipse
+ --Was ist Eclipse?
+ --Funktionsumfang?
+ --Alternativen?
+ --Vor- und Nachteile?
