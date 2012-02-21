@@ -13,10 +13,10 @@ Themen:
  ---SocketManager
  ---Wie funktioniert das Einlesen von Sensorwerten?
  ---Wie funktioniert das Schreiben/Lesen von Dateien?
- ---Servlets
- ---Log4J
  ---Property-Files
+ ---log4j
  ---jFreeCharts
+ ---Servlets
  ---...
  --Apache Tomcat Server
  
