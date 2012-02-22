@@ -51,14 +51,17 @@ Themen:
  --Wozu wird das K8IO verwendet?
  
  -Temperatursensor KTY-222
+ -LM324 (Verstärkerteil)
  --
  
  --Webcam MoCoWeb
  
  -Elektronik
+ --Feststellen des Widerstandwerts eines Widerstands
  --Löten
- --Verkabeln
+ --Verdrahtung
  --Sensorschaltung
+ --Verstärkerschaltung
  
  -GitHub
  --Was ist GitHub
