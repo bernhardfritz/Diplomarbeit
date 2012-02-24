@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="19cm" height="14cm" viewBox="43 42 363 266" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="111" y1="168" x2="111" y2="183"/>
+    <rect style="fill: #ffffff" x="101" y="183" width="20" height="30"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="101" y="183" width="20" height="30"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="111" y1="213" x2="111" y2="228"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="111" y1="74" x2="111" y2="89"/>
+    <rect style="fill: #ffffff" x="101" y="89" width="20" height="30"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="101" y="89" width="20" height="30"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="111" y1="119" x2="111" y2="134"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="233" y1="139" x2="248" y2="139"/>
+    <rect style="fill: #ffffff" x="248" y="129" width="30" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="248" y="129" width="30" height="20"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="278" y1="139" x2="293" y2="139"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="199" y1="171" x2="199" y2="186"/>
+    <rect style="fill: #ffffff" x="189" y="186" width="20" height="30"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="189" y="186" width="20" height="30"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="199" y1="216" x2="199" y2="231"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="223.5" y1="54" x2="233.5" y2="54"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="223.5" y1="74" x2="233.5" y2="74"/>
+    <polygon style="fill: #ffffff" points="233.5,44 233.5,84 268.5,64 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="233.5,44 233.5,84 268.5,64 "/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="235.5" y1="54" x2="243.5" y2="54"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="239.5" y1="50" x2="239.5" y2="58"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="235.5" y1="74" x2="243.5" y2="74"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="268.5" y1="64" x2="278.5" y2="64"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="111" y1="265" x2="111" y2="285"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="91" y1="285" x2="131" y2="285"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="97.7" y1="295" x2="124.3" y2="295"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="104.4" y1="305" x2="117.6" y2="305"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="199" y1="267" x2="199" y2="287"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="179" y1="287" x2="219" y2="287"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="185.7" y1="297" x2="212.3" y2="297"/>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="192.4" y1="307" x2="205.6" y2="307"/>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="111,265 111,265 111,228 111,228 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="111,168 111,168 111,134 111,134 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="111,74 111,54 167.25,54 167.25,54 223.5,54 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="199,267 199,267 199,231 199,231 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="199,171 199,74 223.5,74 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="233,139 233,139 200,139 200,139 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="278.5,64 313,64 313,139 293,139 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="313,64 313,64 374,64 374,64 "/>
+  <text style="fill: #000000;text-anchor:start;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="43" y="107">
+    <tspan x="43" y="107">KTY-222</tspan>
+  </text>
+  <text style="fill: #000000;text-anchor:start;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="70" y="203">
+    <tspan x="70" y="203">2,2k</tspan>
+  </text>
+  <text style="fill: #000000;text-anchor:start;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="162" y="205">
+    <tspan x="162" y="205">10k</tspan>
+  </text>
+  <text style="fill: #000000;text-anchor:start;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="252" y="124">
+    <tspan x="252" y="124">10k</tspan>
+  </text>
+  <text style="fill: #000000;text-anchor:start;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="378" y="68">
+    <tspan x="378" y="68">ADC</tspan>
+  </text>
+</svg>
