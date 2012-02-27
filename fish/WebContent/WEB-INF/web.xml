@@ -139,4 +139,34 @@
     <servlet-name>TestServlet</servlet-name>
     <url-pattern>/TestServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TestDirServlet</display-name>
+    <servlet-name>TestDirServlet</servlet-name>
+    <servlet-class>control.TestDirServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TestDirServlet</servlet-name>
+    <url-pattern>/TestDirServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>control.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginAnywayServlet</display-name>
+    <servlet-name>LoginAnywayServlet</servlet-name>
+    <servlet-class>control.LoginAnywayServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginAnywayServlet</servlet-name>
+    <url-pattern>/LoginAnywayServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

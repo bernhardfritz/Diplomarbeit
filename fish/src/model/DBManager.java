@@ -6,24 +6,40 @@ import java.util.List;
 
 import java.sql.*;
 
+import javax.naming.*;
+import javax.servlet.http.HttpServlet;
+import javax.sql.DataSource;
+
 import control.*;
 
 public class DBManager {
 public Connection con;
 	
-	public DBManager()
+	public DBManager(Object o)
 	{
 		new Data();
-		try {
-			Class.forName(Data.driver);
-		} catch (ClassNotFoundException e) {
-			Data.logger.error(e.getMessage());
+		if(!(o instanceof HttpServlet)) {
+			try {
+				Class.forName(Data.driver);
+			} catch (ClassNotFoundException e) {
+				Data.logger.error(e.getMessage());
+			}
+			try {
+				con = (Connection) DriverManager.getConnection(Data.dburl,Data.user,Data.pass);
+			} catch (SQLException e) {
+				Data.logger.error(e.getMessage());
+			}
 		}
-		try {
-			con = (Connection) DriverManager.getConnection(Data.dburl,Data.user,Data.pass);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			Data.logger.error(e.getMessage());
+		else {
+			try {
+				InitialContext ic = new InitialContext();
+				DataSource ds = (DataSource) ic.lookup("java:comp/env/jdbc/fish");
+				con = ds.getConnection();
+			} catch(NamingException e) {
+				Data.logger.error(e.getMessage());
+			} catch(SQLException e) {
+				Data.logger.error(e.getMessage());
+			}
 		}
 	}
 	
@@ -33,9 +49,12 @@ public Connection con;
 		stat.executeUpdate("create table sensordaten ( id integer primary key autoincrement, wassertemperatur float default 0, lufttemperatur float default 0, zeitpunkt timestamp default current_timestamp);");
 		stat.executeUpdate("drop table if exists users;");
 		stat.executeUpdate("create table users ( id integer primary key autoincrement, username varchar(8) not null, password varchar(32) not null);");
+		stat.close();
 		PreparedStatement prep = con.prepareStatement("insert into users (username, password) values (?, ?);");
 		prep.setString(1, "bernhard");
 		prep.setString(2, Tool.md5("1234"));
+		prep.execute();
+		prep.close();
 	}
 	
 	public void close()
@@ -50,8 +69,8 @@ public Connection con;
 	
 	public boolean login(String username,String password)
 	{
-		String sql="SELECT * FROM users WHERE username=? AND password=?";
 		boolean login=false;
+		String sql="SELECT * FROM users WHERE username=? AND password=?";
 		try {
 			PreparedStatement ps=con.prepareStatement(sql);
 			ps.setString(1,username);

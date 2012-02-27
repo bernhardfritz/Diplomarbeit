@@ -35,7 +35,7 @@ public class DatenServlet extends HttpServlet {
 		Daten d=new Daten(wtemp,ltemp);
 		
 		DBManager dbman;
-		dbman = new DBManager();
+		dbman = new DBManager(this);
 		dbman.speichern(d);
 		dbman.close();
 

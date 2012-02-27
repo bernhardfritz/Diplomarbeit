@@ -41,7 +41,7 @@ public class DBServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 		DBManager dbman;
 		List<Daten> erg=null;
-		dbman = new DBManager();
+		dbman = new DBManager(this);
 		erg=dbman.getAll();
 		dbman.close();
 		String tabelle="<table border=1><th>ID</th><th>Wassertemperatur</th><th>Lufttemperatur</th><th>Zeitpunkt</th><th>Wassertemperatur/Lufttemperatur</th>";

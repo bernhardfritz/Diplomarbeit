@@ -56,6 +56,43 @@ Themen:
  
  --Webcam MoCoWeb
  
+ -Konstruktion mit ProE
+ --Was ist ProE?
+ --Funktionalität?
+ --Alternativen
+ --Konstruktionsideen vom Anfang bis zum Schluss
+ 
+ -Recherche
+ --Konkurrenz?
+ 
+ -Probleme
+ --
+ 
+ -Wasserstandsmessung
+ --Möglichkeiten
+ --Umsetzbarkeit
+ 
+ -Temperaturmessung
+ --Auswahl des Temperatursensors
+ --Eigenschaften des Temperatursensors
+ ---Wasserdicht/fest
+ ---Bereich zwischen 0 und 50° linear
+ --Umsetzbarkeit
+ 
+ -Fischfutter
+ --Welche Futterarten gibt es?
+ ---trocken/feucht
+ ---lebend/tot
+ ---fest/löslich
+ --Welche Futterart wird verwendet?
+ ---Warum?
+ ---Vorteile/Nachteile
+ 
+ -Sicherheit
+ --Was passiert wenn der Server ausfällt?
+ --Passwortmanagement
+ --Wie ist der Server gegen Hacker geschützt?
+ 
  -Elektronik
  --Feststellen des Widerstandwerts eines Widerstands
  --Löten

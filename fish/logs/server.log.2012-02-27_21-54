@@ -1,0 +1,2 @@
+2012-02-27 21:54:03,633 ERROR [main] Logger: path to '/fishdb/fish.db': 'D:\fishdb' does not exist
+2012-02-27 21:54:38,568 ERROR [main] Logger: path to 'fishdb/fish.db': 'D:\Dokumente\Schule\Programmieren\fish\fishdb' does not exist

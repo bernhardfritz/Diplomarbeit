@@ -113,6 +113,7 @@ public class Tool {
     
     public static float getTemperature(float voltage)
     {
+    	voltage/=Data.m;
     	float rsensor = (Data.r*voltage)/(Data.u-voltage);
     	float temp = (rsensor-Data.d)/Data.k;
     	temp+=Data.korrektur;
@@ -130,7 +131,6 @@ public class Tool {
     	float d=0.0f;
     	float e=i;
     	d=(5*e)/1024;
-    	d/=Data.m;
     	return d;	
     }
     
@@ -232,7 +232,7 @@ public class Tool {
     	float wtemp=t;
     	float ltemp=t;
     	Daten d=new Daten(wtemp,ltemp);
-    	DBManager dbman=new DBManager();
+    	DBManager dbman=new DBManager(null);
 		dbman.speichern(d);
     }
     

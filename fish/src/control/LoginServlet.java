@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 
 		DBManager dbman;
 		try {
-			dbman = new DBManager();
+			dbman = new DBManager(this);
 			login = dbman.login(username, password);
 			dbman.close();
 		} catch (Exception e) {

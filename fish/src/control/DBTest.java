@@ -11,8 +11,10 @@ public class DBTest {
 	 * @throws SQLException 
 	 */
 	public static void main(String[] args) throws SQLException {
-		DBManager dbman = new DBManager();
+		DBTest d=new DBTest();
+		DBManager dbman = new DBManager(d);
 		dbman.createDB();
+		dbman.close();
 	}
 
 }
