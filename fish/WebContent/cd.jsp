@@ -8,6 +8,7 @@
 </head>
 <body>
 <%
+out.println(System.getProperty("user.dir"));
 File dir1 = new File (".");
 File dir2 = new File ("..");
 try {

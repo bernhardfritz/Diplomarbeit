@@ -114,7 +114,7 @@ public class Tool {
     public static float getTemperature(float voltage)
     {
     	voltage/=Data.m;
-    	float rsensor = (Data.r*voltage)/(Data.u-voltage);
+    	float rsensor = (Data.r*voltage)/(5-voltage);
     	float temp = (rsensor-Data.d)/Data.k;
     	temp+=Data.korrektur;
     	return round(temp,2);
@@ -130,7 +130,7 @@ public class Tool {
     {
     	float d=0.0f;
     	float e=i;
-    	d=(5*e)/1024;
+    	d=(Data.u*e)/1024;
     	return d;	
     }
     
@@ -364,6 +364,7 @@ public class Tool {
     	       	int i=Integer.parseInt(s.trim());
     	       	float v=Tool.getVoltage(i);
     	   		float t=Tool.getTemperature(v);
+    	   		System.out.println(t);
     			tsw.addOrUpdate(new Minute(), t);
     			tsl.addOrUpdate(new Minute(), t);
     			TimeSeriesCollection dataset = new TimeSeriesCollection();

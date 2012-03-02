@@ -95,7 +95,8 @@ public Connection con;
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
-			Data.logger.error(e.getMessage());
+			//Data.logger.error(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	

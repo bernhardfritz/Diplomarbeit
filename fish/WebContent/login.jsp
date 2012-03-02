@@ -1,3 +1,4 @@
+<%@page import="sun.font.Script"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="java.io.IOException,java.net.InetAddress,java.net.UnknownHostException"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -6,6 +7,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<%
+	if(session.getAttribute("login")!=null)
+	{
+		if(session.getAttribute("login").equals(false)) out.println("<script language=\"JavaScript\">alert(\"Login failed!\");</script>");
+		session.setAttribute("login",null);
+	}
+%>
 </head>
 	<body>
 		<div id="wrapper">
@@ -24,13 +32,7 @@
 				<div id="fenster">
 				</div>
 				<div id="content">
-				<br />
-					<%
-						if(session.getAttribute("login")!=null)
-						{
-							if(session.getAttribute("login").equals(false)) out.println("Login failed!");
-						}
-					%>
+					<br />
 					<form action="LoginServlet" method="POST">
 						<table border="0" >
 						<tr>
@@ -53,7 +55,7 @@
 						<td>
 						</td>
 						<td>
-						<input type="submit" name="submit" />
+						<center><input type="submit" name="submit" value="Login" /></center>
 						</td>
 						</tr>
 						</table>

@@ -35,7 +35,7 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 		session.setAttribute("username",null);
 		session.setAttribute("password",null);
-		session.setAttribute("login",false);
+		session.setAttribute("login",null);
 		response.sendRedirect("login.jsp");
 	}
 

@@ -58,8 +58,7 @@ public class SocketManager {
     	} catch (IOException e) {
     		Data.logger.error(e.getMessage());
     	}	
-    	
-		formatierteNachricht = empfangeneNachricht.substring(0,3);
+		formatierteNachricht = empfangeneNachricht.trim();
         return formatierteNachricht;
     }
     
@@ -75,7 +74,7 @@ public class SocketManager {
     		Data.logger.error(e.getMessage());
     	}	
     	
-		formatierteNachricht = empfangeneNachricht.substring(8,9);
+    	formatierteNachricht = empfangeneNachricht.trim();
         return formatierteNachricht;
     }
     

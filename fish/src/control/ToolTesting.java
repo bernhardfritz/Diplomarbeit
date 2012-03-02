@@ -25,7 +25,9 @@ public class ToolTesting {
 		}
 		String text2[]={"14:03","14:04","14:05"};
 		Tool.writeFishConfig(text2);*/
-		System.out.println(Tool.md5("bernhard"));
+		//System.out.println(Tool.md5("bernhard"));
+		//Tool.createGraph();
+		System.out.println(System.getProperty("user.dir"));
 	}
 
 }

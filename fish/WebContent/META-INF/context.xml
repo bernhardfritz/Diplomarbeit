@@ -5,7 +5,7 @@
   <Resource name="jdbc/fish" auth="Container"
             type="javax.sql.DataSource" username="" password=""
             driverClassName="org.sqlite.JDBC" 
-            url="jdbc:sqlite:~fish.db"
+            url="jdbc:sqlite:C:\fish.db"
             maxActive="8" 
             />
 
