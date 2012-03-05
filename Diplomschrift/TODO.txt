@@ -65,8 +65,25 @@ Themen:
  -Recherche
  --Konkurrenz?
  
+ -Umsetungsentscheidungen
+ --Verstärkerschaltung Problematik
+ ---Warum nicht für diese Möglichkeit entschieden?
+ --Diode in entgegengesetzter Richtung
+ ---neue AREF-Spannung
+
+ 
  -Probleme
- --
+ --Messaufbau
+ ---Wir dachten, dass NetIO vielleicht fehlerhaft (gemessene Referenzspannung 5.68V anstatt 5V)
+    War jedoch nicht der Fall -> Messfehler.
+ --Apache Tomcat Server
+ ---Mappen der SQLite Datenbank.
+    Es war mit relativen Pfad einfach nicht möglich -> absoluter Pfad
+ ---Wir dachten Tomcat cached Bilder -> Es war dann aber doch nur ein Fehler im jsp (Stichwort iframe)
+ --SocketManager
+ ---Am Anfang unseres SocketManagers kam es von Zeit zu Zeit zu Fehlern.
+    -> Nach debuggen des Codes fiel uns auf, dass println statt print verwendet
+       werden muss, da sonst der Befehl für das NetIO nicht ordnungsgemäß ausgeführt wird.
  
  -Wasserstandsmessung
  --Möglichkeiten
