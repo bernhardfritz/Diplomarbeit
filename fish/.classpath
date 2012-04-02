@@ -19,5 +19,10 @@
 	<classpathentry kind="lib" path="D:/Dokumente/Schule/Webshop2.5/WebContent/WEB-INF/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/apache-tomcat-7.0.26/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="D:/Deployment/Ressources/sqlitejdbc-v056.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/javamail-1.4.5/lib/dsn.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/javamail-1.4.5/lib/imap.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/javamail-1.4.5/lib/mailapi.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/javamail-1.4.5/lib/pop3.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/javamail-1.4.5/lib/smtp.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -1,11 +1,17 @@
 package control;
 
+import model.SocketManager;
+
 public class GraphThread extends Thread {
-	GraphThread() {
-		run();
+	SocketManager sman;
+	
+	GraphThread(SocketManager sman) {
+		this.sman=sman;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void run() {
-		Tool.createGraph();
+		Tool.createGraph(sman);
+		stop();
 	}
 }

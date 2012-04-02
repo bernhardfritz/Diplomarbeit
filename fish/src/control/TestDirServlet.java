@@ -1,15 +1,11 @@
 package control;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import model.DBManager;
 import model.Daten;
@@ -38,6 +34,7 @@ public class TestDirServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("deprecation")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().write(request.getRealPath("/"));
 		DBManager dbman=new DBManager(this);

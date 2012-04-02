@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 
+import model.Data;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.time.Second;

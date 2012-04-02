@@ -38,11 +38,11 @@ public class Testing {
 				System.out.println(s[i].substring(3));
 			}
 		}*/
-		new Data();
+		/*new Data();
 		for(int i=670; i<=700; i++) {
 			float d=Tool.getVoltage(i);
 			System.out.println(d);
 			System.out.println(Tool.getTemperature(d));
-		}
+		}*/
 	}
 }

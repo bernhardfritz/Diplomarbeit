@@ -1,5 +1,6 @@
 package model;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -177,8 +178,45 @@ public Connection con;
 				int id=rs.getInt(1);
 				float wtemp=rs.getFloat(2);
 				float ltemp=rs.getFloat(3);
-				java.sql.Timestamp sqlzeitpunkt=rs.getTimestamp(4);
-				java.util.Date zeitpunkt=new java.util.Date(sqlzeitpunkt.getTime());
+				String s=rs.getString(4);
+				Date zeitpunkt=new Date();
+				try {
+					zeitpunkt = Tool.StringToDate(s);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Daten d=new Daten(id,wtemp,ltemp,zeitpunkt);
+				erg.add(d);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
+		}
+		return erg;
+	}
+	
+	public List<Daten> getLastEntries(int count)
+	{
+		List<Daten> erg=new ArrayList<Daten>();
+		String sql="SELECT * FROM "+Data.table+" WHERE id > ((SELECT MAX(id) FROM "+Data.table+")-"+count+")";
+		try {
+			Statement ps=con.createStatement();
+			ResultSet rs=ps.executeQuery(sql);
+			while(rs.next())
+			{
+				int id=rs.getInt(1);
+				float wtemp=rs.getFloat(2);
+				float ltemp=rs.getFloat(3);
+				String s=rs.getString(4);
+				Date zeitpunkt=new Date();
+				try {
+					zeitpunkt = Tool.StringToDate(s);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Daten d=new Daten(id,wtemp,ltemp,zeitpunkt);
 				erg.add(d);
 			}

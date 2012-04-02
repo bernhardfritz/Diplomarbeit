@@ -1,5 +1,6 @@
 package control;
 
+import model.Data;
 import model.SocketManager;
 
 public class SocketTest {

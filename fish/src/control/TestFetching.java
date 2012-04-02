@@ -5,6 +5,6 @@ import model.SocketManager;
 public class TestFetching {
 	public static void main(String args[])
 	{
-		Tool.fetch(new SocketManager(), 1);	
+		Tool.fetch(new SocketManager());	
 	}
 }

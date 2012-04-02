@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.DBManager;
+import model.Data;
 import model.Daten;
 
 /**

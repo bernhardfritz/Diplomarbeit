@@ -15,7 +15,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,14 +26,15 @@ import javax.imageio.ImageIO;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.ThermometerPlot;
+import org.jfree.data.general.DefaultValueDataset;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 
 import model.*;
 
-public class Tool {
-	
+public class Tool { 	
     public static void write(String path, String[] str) throws IOException
     {
         File file = new File(path);
@@ -111,7 +114,7 @@ public class Tool {
     	return exists;
     }
     
-    public static float getTemperature(float voltage)
+    public static float getTemperatureFromVoltage(float voltage)
     {
     	voltage/=Data.m;
     	float rsensor = (Data.r*voltage)/(5-voltage);
@@ -120,13 +123,17 @@ public class Tool {
     	return round(temp,2);
     }
     
+    public static float getTemperature(SocketManager sman,int adc) {
+    	return getTemperatureFromVoltage(getVoltageFromDigital(sman.GETADC(adc)));
+    }
+    
     public static float round(float d, int decimalPlace){
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace,BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
     }
     
-    public static float getVoltage(int i)
+    public static float getVoltageFromDigital(int i)
     {
     	float d=0.0f;
     	float e=i;
@@ -202,6 +209,11 @@ public class Tool {
     	return isReachable;
     }
     
+    public static void sendMail(String subject, String text){
+    	Thread t=new JavaMailThread(subject,text);
+    	t.start();
+    }
+    
     public static String SgetTime(String format)
     {
     	Date d=new Date();
@@ -219,28 +231,47 @@ public class Tool {
 		return uhrzeit;
     }
     
-    public static void fetch(SocketManager sman,int adc)
+    public static void fetch(SocketManager sman)
     {
-    	String s="";
-    	int i;
-    	float v;
-    	float t;
-    	s=sman.GETADC(adc);
-    	i=Integer.parseInt(s);
-		v=Tool.getVoltage(i);
-		t=Tool.getTemperature(v);
-    	float wtemp=t;
-    	float ltemp=t;
+    	float wtemp=getTemperature(sman, Data.adcwasser);
+    	float ltemp=getTemperature(sman, Data.adcluft);
+    	if(wtemp<Data.tempmin) {
+    		sendMail("Automatische Fischfütterungsanlage - Warnung!","Wassertemperatur zu niedrig!\n\nAktuelle Wassertemperatur: "+wtemp+" °C");
+    		//sendTwitterMsg("Automatische Fischfütterungsanlage - Warnung!\n\nWassertemperatur zu niedrig!\n\nAktuelle Wassertemperatur: "+wtemp+" °C");
+    	}
+    	if(wtemp>Data.tempmax) {
+    		sendMail("Automatische Fischfütterungsanlage - Warnung!","Wassertemperatur zu hoch!\n\nAktuelle Wassertemperatur: "+wtemp+" °C");
+    		//sendTwitterMsg("Automatische Fischfütterungsanlage - Warnung!\n\nWassertemperatur zu hoch!\n\nAktuelle Wassertemperatur: "+wtemp+" °C");
+    	}
+    	if(ltemp<Data.tempmin) {
+    		sendMail("Automatische Fischfütterungsanlage - Warnung!","Lufttemperatur zu niedrig!\n\nAktuelle Lufttemperatur: "+ltemp+" °C");
+    		//sendTwitterMsg("Automatische Fischfütterungsanlage - Warnung!\n\nLufttemperatur zu niedrig!\n\nAktuelle Lufttemperatur: "+ltemp+" °C");
+    	}
+    	if(ltemp>Data.tempmax) {
+    		sendMail("Automatische Fischfütterungsanlage - Warnung!","Lufttemperatur zu hoch!\n\nAktuelle Lufttemperatur: "+ltemp+" °C");
+    		//sendTwitterMsg("Automatische Fischfütterungsanlage - Warnung!\n\nLufttemperatur zu hoch!\n\nAktuelle Lufttemperatur: "+ltemp+" °C");
+    	}
     	Daten d=new Daten(wtemp,ltemp);
     	DBManager dbman=new DBManager(null);
 		dbman.speichern(d);
+		dbman.close();
     }
     
-    public static void feed(SocketManager sman,int adc)
+    public static void feed(SocketManager sman)
     {
-    	sman.SETPORT(adc,1);
-    	wait(5000);
-    	sman.SETPORT(adc,0);
+    	new Data();
+    	long endtime=new Date().getTime()+Data.feedingtime;
+		int counter=0;
+		sman.SETPORT(Data.portmotor,1);
+		Tool.wait(500);
+		while(new Date().getTime()<=endtime) {
+			if(sman.GETADC(Data.adclicht)<512) {
+				counter ++;
+				sman.SETPORT(Data.portmotor, 0);
+			}
+			Tool.wait(10);
+		}
+		if(counter==0) sman.SETPORT(Data.portmotor,0);
     }
     
     public static String[] calcTime(String period)
@@ -309,10 +340,10 @@ public class Tool {
     public static String getGauge(float temperatur)
     {
     	int temp=(int)round(temperatur,0);
-    	int width=(int) ((temp-10)*Math.log(temp)*5);
+    	int width=temp*10-100;
     	String color;
     	if(temp<20) color = "RoyalBlue";
-		else if(temp>30) color = "Red";
+		else if(temp>25) color = "Red";
 		else color = "LawnGreen";
     	String gauge;
 		gauge =	"<img src=\"img/transparent.png\" height=15 width=" + width + " alt=\"" + temp + "\" style=\"background-color:" + color +"\" />";
@@ -339,8 +370,52 @@ public class Tool {
         return res;
     }
     
+    public static Date StringToDate(String s) throws ParseException {
+    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	return df.parse(s);
+    }
+    
+    public static JFreeChart createThermometer(String s) {
+    	DBManager dbman=new DBManager(null);
+    	DefaultValueDataset dataset=null;
+    	for(Daten d:dbman.getLastEntries(1)) {
+    		if(s.equals("Wasser")) dataset = new DefaultValueDataset(d.getWtemp());
+    		if(s.equals("Luft")) dataset = new DefaultValueDataset(d.getLtemp());
+    	}
+    	ThermometerPlot plot = new ThermometerPlot(dataset);
+    	JFreeChart chart = new JFreeChart(s+"temperatur", JFreeChart.DEFAULT_TITLE_FONT, plot, false);
+    	dbman.close();
+    	return chart;
+    }
+    
     @SuppressWarnings("deprecation")
-	public static void createGraph() {
+	public static JFreeChart createGraph() {         		
+   		TimeSeries tsw = new TimeSeries("Wassertemperatur in °C", Minute.class);
+    	TimeSeries tsl = new TimeSeries("Lufttemperatur in °C", Minute.class);
+    	tsw.setMaximumItemCount(60);
+    	tsl.setMaximumItemCount(60);
+    	DBManager dbman=new DBManager(null);
+    	for(Daten d:dbman.getLastEntries(60)) {
+    		tsw.add(new Minute(d.getZeitpunkt()), d.getWtemp());
+    		tsl.add(new Minute(d.getZeitpunkt()), d.getLtemp());
+    	}
+		TimeSeriesCollection dataset = new TimeSeriesCollection();
+		dataset.addSeries(tsw);
+		dataset.addSeries(tsl);
+		JFreeChart chart = ChartFactory.createTimeSeriesChart(
+		"Wasser- und Lufttemperaturgraph",
+		"Sekunden",
+		"°C",
+		dataset,
+		true,
+		true,
+		false);
+		dbman.close();
+		return chart;
+    }
+    
+    @SuppressWarnings("deprecation")
+	public static void createGraph(SocketManager sman) {
     	BufferedImage bi;         		
    		TimeSeries tsw = new TimeSeries("Wassertemperatur in °C", Minute.class);
     	TimeSeries tsl = new TimeSeries("Lufttemperatur in °C", Minute.class);
@@ -357,16 +432,13 @@ public class Tool {
     		}
     		if(current!=previous)
     		{
-    			System.out.println(d.toString());
     			new Data();
-    			SocketManager sman=new SocketManager();
-    			String s=sman.GETADC(1);
-    	       	int i=Integer.parseInt(s.trim());
-    	       	float v=Tool.getVoltage(i);
-    	   		float t=Tool.getTemperature(v);
-    	   		System.out.println(t);
-    			tsw.addOrUpdate(new Minute(), t);
-    			tsl.addOrUpdate(new Minute(), t);
+    	   		float t1=Tool.getTemperature(sman,Data.adcwasser);
+    	   		float t2=Tool.getTemperature(sman,Data.adcluft);
+    	   		Data.logger.info("Wassertemperatur: "+t1);
+    	   		Data.logger.info("Lufttemperatur: "+t2);
+    			tsw.addOrUpdate(new Minute(), t1);
+    			tsl.addOrUpdate(new Minute(), t2);
     			TimeSeriesCollection dataset = new TimeSeriesCollection();
     			dataset.addSeries(tsw);
     			dataset.addSeries(tsl);

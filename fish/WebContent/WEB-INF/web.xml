@@ -169,4 +169,34 @@
     <servlet-name>LoginAnywayServlet</servlet-name>
     <url-pattern>/LoginAnywayServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChartViewer</display-name>
+    <servlet-name>ChartViewer</servlet-name>
+    <servlet-class>control.ChartViewer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChartViewer</servlet-name>
+    <url-pattern>/ChartViewer</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>WasserThermoServlet</display-name>
+    <servlet-name>WasserThermoServlet</servlet-name>
+    <servlet-class>control.WasserThermoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WasserThermoServlet</servlet-name>
+    <url-pattern>/WasserThermoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LuftThermoServlet</display-name>
+    <servlet-name>LuftThermoServlet</servlet-name>
+    <servlet-class>control.LuftThermoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LuftThermoServlet</servlet-name>
+    <url-pattern>/LuftThermoServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

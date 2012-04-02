@@ -27,7 +27,7 @@ public class Fetching
 				{
 					System.out.println("Synchronisierung erfolgreich!");
 					System.out.println("Es ist "+Tool.SgetTime("HH:mm")+" Uhr. Datenermittlung wird gestartet!");
-					Tool.fetch(sman,1);
+					Tool.fetch(sman);
 					System.out.println("Daten wurden um "+Tool.SgetTime("HH:mm")+" Uhr erfolgreich in die Datenbank eingetragen!");
 					previous=current;
 				}

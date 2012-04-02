@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import model.Data;
+
 
 public class GraphTest extends JFrame{
 	

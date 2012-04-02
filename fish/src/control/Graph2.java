@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import model.Data;
 import model.SocketManager;
 
 import org.jfree.chart.ChartFactory;
@@ -53,12 +54,10 @@ public class Graph2 extends JFrame{
 				System.out.println(d.toString());
 				new Data();
 				SocketManager sman=new SocketManager();
-				String s=sman.GETADC(1);
-	        	int i=Integer.parseInt(s.trim());
-	        	float v=Tool.getVoltage(i);
-	    		float t=Tool.getTemperature(v);
-				tsw.addOrUpdate(new Second(), t);
-				tsl.addOrUpdate(new Second(), t);
+	    		float t1=Tool.getTemperature(sman,Data.adcwasser);
+	    		float t2=Tool.getTemperature(sman, Data.adcluft);
+				tsw.addOrUpdate(new Second(), t1);
+				tsl.addOrUpdate(new Second(), t2);
 				TimeSeriesCollection dataset = new TimeSeriesCollection();
 				dataset.addSeries(tsw);
 				dataset.addSeries(tsl);

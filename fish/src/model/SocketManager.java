@@ -8,8 +8,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import control.Data;
-
 public class SocketManager {
 	
 	private String ip;
@@ -47,7 +45,11 @@ public class SocketManager {
 		}
 	}
 	
-    public String GETADC(int adc)
+	public boolean isConnected() {
+		return socket.isConnected();
+	}
+	
+    public int GETADC(int adc)
     {
     	String zuSendendeNachricht = "GETADC "+adc;
 		String empfangeneNachricht = "";
@@ -59,7 +61,7 @@ public class SocketManager {
     		Data.logger.error(e.getMessage());
     	}	
 		formatierteNachricht = empfangeneNachricht.trim();
-        return formatierteNachricht;
+        return Integer.parseInt(formatierteNachricht);
     }
     
     public String GETSTATUS(int port)

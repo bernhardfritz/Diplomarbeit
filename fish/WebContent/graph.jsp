@@ -27,7 +27,7 @@
 				</div>
 				<div id="content">
 					<p>
-						<img src="fishgraph/fishgraph.png" width="800" height="400"></img>
+						<img src="ChartViewer"></img><br><br>
 					</p>
 		  	</div><!-- Ende content -->
 		  </center>

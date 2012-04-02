@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 
+import model.Data;
 import model.SocketManager;
 
 public class Feeding {
@@ -41,7 +42,7 @@ public class Feeding {
 					}
 					if(ready)
 					{
-						Tool.feed(sman,1);
+						Tool.feed(sman);
 						previous=current;
 						ready=false;
 					}

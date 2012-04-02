@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.io.IOException,java.net.InetAddress,java.net.UnknownHostException"%>
+    pageEncoding="ISO-8859-1" import="java.io.IOException,java.net.InetAddress,java.net.UnknownHostException, control.Tool"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,19 +31,21 @@
 					<%
 						if(session.getAttribute("login")!=null&&session.getAttribute("login").equals(true))
 						{
-							boolean status=false;
-							try {
-								status=InetAddress.getByName("192.168.0.90").isReachable(5000);
-							} catch (UnknownHostException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
+							boolean status=Tool.ping();
+							if(status) {
+								out.print("<img src=\"img\\greenlight.png\" width=32 height=32/>");
+								out.print("ONLINE");
 							}
-							if(status) out.println("AVR-Net-IO-Board connected!");
-							else out.println("AVR-Net-IO-Board not connected...");
+							else {
+								out.print("<img src=\"img\\redlight.png\" /> width=32 height=32");
+								out.print("OFFLINE");
+							}
 						}
 					%>
 					<br />
+					<br />
+					<img src="WasserThermoServlet" />
+					<img src="LuftThermoServlet" />
 					<form action="LogoutServlet">
 						<input type="submit" value="Logout" />
 					</form>
