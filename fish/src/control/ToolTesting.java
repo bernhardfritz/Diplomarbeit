@@ -55,11 +55,12 @@ public class ToolTesting {
 		//Tool.fetch(new SocketManager());
 		//new Data();
 		//System.out.println(Data.mailrecipientadress);
-		new Data();
+		//new Data();
 		//Tool.sendMail("asdf", "bla");
-		System.out.println(Data.mailrecipientadress);
-		System.out.println(Data.mailsenderadress);
-		new JavaMailThread("asdf","asdf").run();
+		//System.out.println(Data.mailrecipientadress);
+		//System.out.println(Data.mailsenderadress);
+		//new JavaMailThread("asdf","asdf").run();
+		Tool.feed(new SocketManager());
 	}
 
 }

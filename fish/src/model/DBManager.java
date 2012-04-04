@@ -44,18 +44,24 @@ public Connection con;
 		}
 	}
 	
-	public void createDB() throws SQLException {
-		Statement stat = con.createStatement();
-		stat.executeUpdate("drop table if exists sensordaten;");
-		stat.executeUpdate("create table sensordaten ( id integer primary key autoincrement, wassertemperatur float default 0, lufttemperatur float default 0, zeitpunkt timestamp default current_timestamp);");
-		stat.executeUpdate("drop table if exists users;");
-		stat.executeUpdate("create table users ( id integer primary key autoincrement, username varchar(8) not null, password varchar(32) not null);");
-		stat.close();
-		PreparedStatement prep = con.prepareStatement("insert into users (username, password) values (?, ?);");
-		prep.setString(1, "bernhard");
-		prep.setString(2, Tool.md5("1234"));
-		prep.execute();
-		prep.close();
+	public void createDB() {
+		Statement stat;
+		try {
+			stat = con.createStatement();
+			stat.executeUpdate("drop table if exists sensordaten;");
+			stat.executeUpdate("create table sensordaten ( id integer primary key autoincrement, wassertemperatur float default 0, lufttemperatur float default 0, zeitpunkt timestamp default current_timestamp);");
+			stat.executeUpdate("drop table if exists users;");
+			stat.executeUpdate("create table users ( id integer primary key autoincrement, username varchar(8) not null, password varchar(32) not null);");
+			stat.close();
+			PreparedStatement prep = con.prepareStatement("insert into users (username, password) values (?, ?);");
+			prep.setString(1, "bernhard");
+			prep.setString(2, Tool.md5("1234"));
+			prep.execute();
+			prep.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			Data.logger.error(e.getMessage());
+		}
 	}
 	
 	public void close()

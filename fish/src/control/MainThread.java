@@ -10,6 +10,9 @@ public class MainThread extends Thread{
 	public void run()
 	{
 		new Data();
+		DBManager dbman=new DBManager(null);
+		dbman.createDB();
+		dbman.close();
 		PingThread pingThread = new PingThread();
 		pingThread.run();
 		

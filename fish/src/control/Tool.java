@@ -404,7 +404,7 @@ public class Tool {
 		dataset.addSeries(tsl);
 		JFreeChart chart = ChartFactory.createTimeSeriesChart(
 		"Wasser- und Lufttemperaturgraph",
-		"Sekunden",
+		"Zeit",
 		"°C",
 		dataset,
 		true,

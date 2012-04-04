@@ -40,6 +40,7 @@ public class DBServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		new Data();
 		HttpSession session=request.getSession();
+		session.setAttribute("tabelle",null);
 		DBManager dbman;
 		List<Daten> erg=null;
 		dbman = new DBManager(this);

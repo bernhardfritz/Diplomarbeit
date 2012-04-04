@@ -37,7 +37,7 @@
 								out.print("ONLINE");
 							}
 							else {
-								out.print("<img src=\"img\\redlight.png\" /> width=32 height=32");
+								out.print("<img src=\"img\\redlight.png\" width=32 height=32/>");
 								out.print("OFFLINE");
 							}
 						}

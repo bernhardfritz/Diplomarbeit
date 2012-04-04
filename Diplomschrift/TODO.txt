@@ -54,7 +54,7 @@ Themen:
  -LM324 (Verstärkerteil)
  --
  
- --Webcam MoCoWeb
+ -Lichtschranke
  
  -Konstruktion mit ProE
  --Was ist ProE?
@@ -70,6 +70,7 @@ Themen:
  ---Warum nicht für diese Möglichkeit entschieden?
  --Diode in entgegengesetzter Richtung
  ---neue AREF-Spannung
+ ---Warum nicht für diese Möglichkeit entschieden?
 
  
  -Probleme
@@ -77,6 +78,7 @@ Themen:
  ---Wir dachten, dass NetIO vielleicht fehlerhaft (gemessene Referenzspannung 5.68V anstatt 5V)
     War jedoch nicht der Fall -> Messfehler.
  --Apache Tomcat Server
+ ---Twitter verwendete gleichen Port wie Apache (80)
  ---Mappen der SQLite Datenbank.
     Es war mit relativen Pfad einfach nicht möglich -> absoluter Pfad
  ---Wir dachten Tomcat cached Bilder -> Es war dann aber doch nur ein Fehler im jsp (Stichwort iframe)
@@ -84,6 +86,14 @@ Themen:
  ---Am Anfang unseres SocketManagers kam es von Zeit zu Zeit zu Fehlern.
     -> Nach debuggen des Codes fiel uns auf, dass println statt print verwendet
        werden muss, da sonst der Befehl für das NetIO nicht ordnungsgemäß ausgeführt wird.
+ --JFreeCharts
+ ---TimeSeriesChart Missverständnis. Keine Echtzeit-Datenermittlung, sondern Daten von Datenbank eintragen.
+ ---Bild auf Webinterface anzeigen => Mit Servlet
+ --Elektronik
+ ---Verstärkerschaltung hat nicht funktioniert
+ ---Diodenschaltung hat nicht funktioniert
+ ---Temperaturmessung ungenau
+ 
  
  -Wasserstandsmessung
  --Möglichkeiten
