@@ -48,10 +48,31 @@ public Connection con;
 		Statement stat;
 		try {
 			stat = con.createStatement();
+			stat.executeUpdate("create table if not exists sensordaten ( id integer primary key autoincrement, wassertemperatur float default 0, lufttemperatur float default 0, zeitpunkt timestamp default current_timestamp);");
+			stat.executeUpdate("create table if not exists users ( id integer primary key autoincrement, username varchar(8) not null, password varchar(32) not null);");
+			stat.executeUpdate("create table if not exists konfiguration ( id integer primary key autoincrement, string varchar(999) not null);");
+			stat.close();
+			PreparedStatement prep = con.prepareStatement("insert into users (username, password) values (?, ?);");
+			prep.setString(1, "bernhard");
+			prep.setString(2, Tool.md5("1234"));
+			prep.execute();
+			prep.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			Data.logger.error(e.getMessage());
+		}
+	}
+	
+	public void recreateDB() {
+		Statement stat;
+		try {
+			stat = con.createStatement();
 			stat.executeUpdate("drop table if exists sensordaten;");
-			stat.executeUpdate("create table sensordaten ( id integer primary key autoincrement, wassertemperatur float default 0, lufttemperatur float default 0, zeitpunkt timestamp default current_timestamp);");
 			stat.executeUpdate("drop table if exists users;");
-			stat.executeUpdate("create table users ( id integer primary key autoincrement, username varchar(8) not null, password varchar(32) not null);");
+			stat.executeUpdate("drop table if exists konfiguration;");
+			stat.executeUpdate("create table if not exists sensordaten ( id integer primary key autoincrement, wassertemperatur float default 0, lufttemperatur float default 0, zeitpunkt timestamp default current_timestamp);");
+			stat.executeUpdate("create table if not exists users ( id integer primary key autoincrement, username varchar(8) not null, password varchar(32) not null);");
+			stat.executeUpdate("create table if not exists konfiguration ( id integer primary key autoincrement, string varchar(999) not null);");
 			stat.close();
 			PreparedStatement prep = con.prepareStatement("insert into users (username, password) values (?, ?);");
 			prep.setString(1, "bernhard");
@@ -232,5 +253,69 @@ public Connection con;
 			Data.logger.error(e.getMessage());
 		}
 		return erg;
+	}
+	
+	public String[] getConfig() {
+		
+		String sql="SELECT string FROM konfiguration WHERE id=?";
+		String string="";
+		try {
+			PreparedStatement ps=con.prepareStatement(sql);
+			ps.setInt(1,1);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				string=rs.getString(1);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
+		}
+		int anzahl=string.length()/4;
+		String ret[]=new String[anzahl];
+		for(int i=0; i<anzahl; i++)
+		{
+			ret[i]=string.substring(i*4,(i+1)*4);
+		}
+		return ret;
+	}
+	
+	public void setConfig(String s[]) {
+		String result="";
+		String sql="INSERT INTO konfiguration(string) VALUES(?)";
+		for(String temp:s) {
+			result+=temp;
+		}
+		try {
+			Statement stat = con.createStatement();
+			stat.executeUpdate("drop table if exists konfiguration;");
+			stat.executeUpdate("create table konfiguration ( id integer primary key autoincrement, string varchar(999) not null);");
+			stat.close();
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1,result);
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
+		}
+	}
+	
+	public boolean konfigurationExists() {
+		String sql="SELECT count() FROM konfiguration";
+		int count=0;
+		boolean exists=false;
+		try {
+			Statement stat=con.createStatement();
+			ResultSet rs=stat.executeQuery(sql);
+			while(rs.next()) {
+				count=rs.getInt(1);
+			}
+			rs.close();
+			stat.close();
+		} catch (SQLException e) {
+			Data.logger.error(e.getMessage());
+		}
+		if(count>0) exists=true;
+		return exists;
 	}
 }

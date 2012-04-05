@@ -66,6 +66,16 @@ Themen:
  --Konkurrenz?
  
  -Umsetungsentscheidungen
+ --Idee "Box mit Förderband"
+ ---Warum nicht für diese Möglichkeit entschieden?
+ --JAVA
+ ---Warum für diese Programmiersprache entschieden?
+ --MySQL
+ ---Warum nicht für diese Datenbank entschieden?
+ --SQLite
+ ---Warum für diese Datenbank entschieden?
+ --AVR-NetIO-Board und K8IO
+ ---Warum für diese Hardware entschieden?
  --Verstärkerschaltung Problematik
  ---Warum nicht für diese Möglichkeit entschieden?
  --Diode in entgegengesetzter Richtung

@@ -33,8 +33,10 @@ public class Data {
 	public static int adcwasser;
 	public static int portmotor;
 	public static int feedingtime;
-	public static int tempmin;
-	public static int tempmax;
+	public static int wassermin;
+	public static int wassermax;
+	public static int luftmin;
+	public static int luftmax;
 	public static float m;
 	public static float r;
 	public static float u;
@@ -80,8 +82,10 @@ public class Data {
 		adcwasser = Integer.parseInt(prop.getProperty("adcwasser"));
 		portmotor = Integer.parseInt(prop.getProperty("portmotor"));
 		feedingtime = Integer.parseInt(prop.getProperty("feedingtime"));
-		tempmin = Integer.parseInt(prop.getProperty("tempmin"));
-		tempmax = Integer.parseInt(prop.getProperty("tempmax"));
+		wassermin = Integer.parseInt(prop.getProperty("wassermin"));
+		wassermax = Integer.parseInt(prop.getProperty("wassermax"));
+		luftmin = Integer.parseInt(prop.getProperty("luftmin"));
+		luftmax = Integer.parseInt(prop.getProperty("luftmax"));
 		m = Float.parseFloat(prop.getProperty("m"));
 		r = Float.parseFloat(prop.getProperty("r"));
 		u = Float.parseFloat(prop.getProperty("u"));

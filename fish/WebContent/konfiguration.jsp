@@ -1,3 +1,4 @@
+<%@page import="model.DBManager"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="control.*,java.io.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -34,8 +35,10 @@ xmlhttp.open("GET","ConfigServlet?str="+str,true);
 xmlhttp.send();
 }
 var currentlength=<%
-if(!Tool.fishConfigExists()) out.print("0");
-else out.print(Tool.readFishConfig().length);	
+DBManager dbman=new DBManager(this);
+if(!dbman.konfigurationExists()) out.print("0");
+else out.print(dbman.getConfig().length);	
+dbman.close();
 %>;
 myFunction(currentlength);
 </script>

@@ -52,6 +52,16 @@ public class Tool {
         bw.close();
     }
     
+    public static boolean isFeedingTime() {
+    	boolean b=false;
+    	DBManager dbman=new DBManager(null);
+    	for(String s:dbman.getConfig()) {
+    		if(s.equals(Tool.SgetTime("HHmm"))) b=true;
+    	}
+    	dbman.close();
+    	return b;
+    }
+    
     public static String[] read(String path)
     {
     	new Data();
@@ -235,19 +245,19 @@ public class Tool {
     {
     	float wtemp=getTemperature(sman, Data.adcwasser);
     	float ltemp=getTemperature(sman, Data.adcluft);
-    	if(wtemp<Data.tempmin) {
+    	if(wtemp<Data.wassermin) {
     		sendMail("Automatische Fischfütterungsanlage - Warnung!","Wassertemperatur zu niedrig!\n\nAktuelle Wassertemperatur: "+wtemp+" °C");
     		//sendTwitterMsg("Automatische Fischfütterungsanlage - Warnung!\n\nWassertemperatur zu niedrig!\n\nAktuelle Wassertemperatur: "+wtemp+" °C");
     	}
-    	if(wtemp>Data.tempmax) {
+    	if(wtemp>Data.wassermax) {
     		sendMail("Automatische Fischfütterungsanlage - Warnung!","Wassertemperatur zu hoch!\n\nAktuelle Wassertemperatur: "+wtemp+" °C");
     		//sendTwitterMsg("Automatische Fischfütterungsanlage - Warnung!\n\nWassertemperatur zu hoch!\n\nAktuelle Wassertemperatur: "+wtemp+" °C");
     	}
-    	if(ltemp<Data.tempmin) {
+    	if(ltemp<Data.luftmin) {
     		sendMail("Automatische Fischfütterungsanlage - Warnung!","Lufttemperatur zu niedrig!\n\nAktuelle Lufttemperatur: "+ltemp+" °C");
     		//sendTwitterMsg("Automatische Fischfütterungsanlage - Warnung!\n\nLufttemperatur zu niedrig!\n\nAktuelle Lufttemperatur: "+ltemp+" °C");
     	}
-    	if(ltemp>Data.tempmax) {
+    	if(ltemp>Data.luftmax) {
     		sendMail("Automatische Fischfütterungsanlage - Warnung!","Lufttemperatur zu hoch!\n\nAktuelle Lufttemperatur: "+ltemp+" °C");
     		//sendTwitterMsg("Automatische Fischfütterungsanlage - Warnung!\n\nLufttemperatur zu hoch!\n\nAktuelle Lufttemperatur: "+ltemp+" °C");
     	}
@@ -396,8 +406,8 @@ public class Tool {
     	tsl.setMaximumItemCount(60);
     	DBManager dbman=new DBManager(null);
     	for(Daten d:dbman.getLastEntries(60)) {
-    		tsw.add(new Minute(d.getZeitpunkt()), d.getWtemp());
-    		tsl.add(new Minute(d.getZeitpunkt()), d.getLtemp());
+    		tsw.addOrUpdate(new Minute(d.getZeitpunkt()), d.getWtemp());
+    		tsl.addOrUpdate(new Minute(d.getZeitpunkt()), d.getLtemp());
     	}
 		TimeSeriesCollection dataset = new TimeSeriesCollection();
 		dataset.addSeries(tsw);

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.DBManager;
+
 /**
  * Servlet implementation class ConfigServlet2
  */
@@ -32,19 +34,16 @@ public class ConfigServlet2 extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String str[]=new String[99];
 		int anzahl=new Integer(request.getParameter("anzahl"));
+		String str[]=new String[anzahl];
 		for(int i=0; i<anzahl; i++)
 		{
-			str[i]=request.getParameter("stunden"+i)+":";
+			str[i]=request.getParameter("stunden"+i);
 			str[i]+=request.getParameter("minuten"+i);
 		}
-		try{
-			Tool.writeFishConfig(str);
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}	
+		DBManager dbman=new DBManager(this);
+		dbman.setConfig(str);
+		dbman.close();
 		response.sendRedirect("index.jsp");
 	}
 

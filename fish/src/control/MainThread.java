@@ -20,7 +20,6 @@ public class MainThread extends Thread{
 		SocketManager sman=new SocketManager();
 		Data.logger.info("Verbindung hergestellt!");
 		
-		boolean ready=false;
 		int current=Tool.IgetTime("m");
 		int previous=Tool.IgetTime("m");
 		
@@ -32,16 +31,11 @@ public class MainThread extends Thread{
 				Data.logger.info("Datenermittlung wird durchgeführt...");
 				Tool.fetch(sman);
 				Data.logger.info("Daten wurden erfolgreich in die Datenbank eingetragen!");
-				for(String line:Tool.read(Data.fishconfig))
-				{
-					if(line.equals(Tool.SgetTime("HH:mm"))) ready=true;
-				}
-				if(ready)
+				if(Tool.isFeedingTime())
 				{
 					Data.logger.info("Fütterung wird durchgeführt...");
 					Tool.feed(sman);
 					Data.logger.info("Fische wurden erfolgreich gefüttert!");
-					ready=false;
 				}
 				previous=current;
 			}

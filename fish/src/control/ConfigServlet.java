@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.DBManager;
 import model.Data;
 
 /**
@@ -42,12 +43,13 @@ public class ConfigServlet extends HttpServlet {
 		String stunden="";
 		String minuten="";
 		PrintWriter out=response.getWriter();
-		int currentlength=Tool.readFishConfig().length;
+		DBManager dbman=new DBManager(this);
+		int currentlength=dbman.getConfig().length;
 		if(!str.equals(""))
 		{
 			anzahl=new Integer(str);
 		}
-		if((anzahl>0&&anzahl<=Data.futtermax&&anzahl!=currentlength)||!Tool.fishConfigExists())
+		if((anzahl>0&&anzahl<=Data.futtermax&&anzahl!=currentlength)||!dbman.konfigurationExists())
 		{
 			res+="<br />\n";
 			for(int i=0; i<anzahl; i++)
@@ -80,16 +82,16 @@ public class ConfigServlet extends HttpServlet {
 			res+="<br />\n";
 			res+="<input type=\"submit\" value=\"Speichern\" />";
 		}
-		if(anzahl==currentlength&&Tool.fishConfigExists())
+		if(anzahl==currentlength&&dbman.konfigurationExists())
 		{
-			String s[]=Tool.readFishConfig();
+			String s[]=dbman.getConfig();
 			String fstunden[]=new String[s.length];
 			String fminuten[]=new String[s.length];
 			int counter=0;
 			for(String temp:s)
 			{
 				fstunden[counter]=temp.substring(0,2);
-				fminuten[counter]=temp.substring(3);
+				fminuten[counter]=temp.substring(2);
 				counter++;
 			}
 			res+="<br />\n";
@@ -127,7 +129,7 @@ public class ConfigServlet extends HttpServlet {
 			res+="<input type=\"submit\" value=\"Speichern\" />";
 			
 		}
+		dbman.close();
 		out.println(res);		
 	}
-
 }

@@ -2,6 +2,9 @@ package control;
 
 import java.util.Scanner;
 
+import model.DBManager;
+import model.SocketManager;
+
 public class Launcher{
 
 	
@@ -9,9 +12,20 @@ public class Launcher{
 		MainThread mainThread=new MainThread();
 		mainThread.start();
 		Scanner sc=new Scanner(System.in);
-		if(sc.nextLine().contains("")) {
-			mainThread.isRunning=false;
-			System.exit(0);
+		String line="";
+		while(!(line=sc.nextLine()).equals("exit")) {
+			if(line.equals("reset")) {
+				DBManager dbman=new DBManager(null);
+				dbman.recreateDB();
+				dbman.close();
+			}
+			if(line.equals("feed")) {
+				SocketManager sman=new SocketManager();
+				Tool.feed(sman);
+				sman.close();
+			}
 		}
+		mainThread.isRunning=false;
+		System.exit(0);
 	}
 }
