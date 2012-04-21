@@ -42,6 +42,7 @@ public class ConfigServlet extends HttpServlet {
 		String res="";
 		String stunden="";
 		String minuten="";
+		String einheiten="";
 		PrintWriter out=response.getWriter();
 		DBManager dbman=new DBManager(this);
 		int currentlength=dbman.getConfig().length;
@@ -77,7 +78,17 @@ public class ConfigServlet extends HttpServlet {
 					res+="<option value=\""+minuten+"\">"+minuten+"</option>\n";
 					minuten="";
 				}
-				res+="</select>Uhr.<br />\n";
+				res+="</select>Uhr mit \n";
+				res+="<select name=\"einheiten"+i+"\">\n";
+				for(int l=1; l<=24; l++) {
+					einheiten+=l;
+					if(einheiten.length()==1) {
+						einheiten="0"+l;
+					}
+					res+="<option value=\""+einheiten+"\">"+einheiten+"</option>\n";
+					einheiten="";
+				}
+				res+="</select> Futtereinheit(en).<br />\n";
 			}
 			res+="<br />\n";
 			res+="<input type=\"submit\" value=\"Speichern\" />";
@@ -87,11 +98,14 @@ public class ConfigServlet extends HttpServlet {
 			String s[]=dbman.getConfig();
 			String fstunden[]=new String[s.length];
 			String fminuten[]=new String[s.length];
+			String feinheiten[]=new String[s.length];
 			int counter=0;
 			for(String temp:s)
 			{
 				fstunden[counter]=temp.substring(0,2);
-				fminuten[counter]=temp.substring(2);
+				fminuten[counter]=temp.substring(2,4);
+				feinheiten[counter]=temp.substring(4,6);
+				
 				counter++;
 			}
 			res+="<br />\n";
@@ -123,11 +137,21 @@ public class ConfigServlet extends HttpServlet {
 					else res+="<option value=\""+minuten+"\">"+minuten+"</option>\n";
 					minuten="";
 				}
-				res+="</select>Uhr.<br />\n";
+				res+="</select>Uhr mit \n";
+				res+="<select name=\"einheiten"+i+"\">\n";
+				for(int l=1; l<=24; l++) {
+					einheiten+=l;
+					if(einheiten.length()==1) {
+						einheiten="0"+l;
+					}
+					if(feinheiten[i].equals(einheiten)) res+="<option value=\""+einheiten+"\" selected=\"selected\">"+einheiten+"</option>\n";
+					res+="<option value=\""+einheiten+"\">"+einheiten+"</option>\n";
+					einheiten="";
+				}
+				res+="</select> Futtereinheit(en).<br />\n";
 			}
 			res+="<br />\n";
 			res+="<input type=\"submit\" value=\"Speichern\" />";
-			
 		}
 		dbman.close();
 		out.println(res);		

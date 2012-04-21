@@ -56,10 +56,20 @@ public class Tool {
     	boolean b=false;
     	DBManager dbman=new DBManager(null);
     	for(String s:dbman.getConfig()) {
-    		if(s.equals(Tool.SgetTime("HHmm"))) b=true;
+    		if(s.substring(0,4).equals(Tool.SgetTime("HHmm"))) b=true;
     	}
     	dbman.close();
     	return b;
+    }
+    
+    public static int getFuttereinheiten() {
+    	int futtereinheiten=1;
+    	DBManager dbman=new DBManager(null);
+    	for(String s:dbman.getConfig()) {
+    		if(s.substring(0,4).equals(Tool.SgetTime("HHmm"))) futtereinheiten=Integer.parseInt(s.substring(4));
+    	}
+    	dbman.close();
+    	return futtereinheiten;
     }
     
     public static String[] read(String path)
@@ -204,11 +214,11 @@ public class Tool {
 		}
     }
     
-    public static boolean ping()
+    public static boolean ping(String ip)
     {
     	boolean isReachable = false;
 		try {
-			isReachable = InetAddress.getByName(Data.netioip).isReachable(5000);
+			isReachable = InetAddress.getByName(ip).isReachable(5000);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -216,7 +226,21 @@ public class Tool {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if(isReachable) Data.logger.info(ip+" is pingable!");
+		else Data.logger.info(ip+" is not pingable!");
     	return isReachable;
+    }
+    
+    public static boolean pingGoogle() {
+    	boolean b=false;
+    	try{
+    		InetAddress i[] = InetAddress.getAllByName("www.google.com");
+    		for(InetAddress temp:i) {
+    			if(temp!=null) b=true;
+    		}
+		} catch (UnknownHostException e) {
+		}
+		return b;
     }
     
     public static void sendMail(String subject, String text){
@@ -267,17 +291,18 @@ public class Tool {
 		dbman.close();
     }
     
-    public static void feed(SocketManager sman)
+    public static void feed(SocketManager sman, int count)
     {
     	new Data();
-    	long endtime=new Date().getTime()+Data.feedingtime;
+    	long endtime=(new Date().getTime()+Data.feedingtime)*count;
 		int counter=0;
 		sman.SETPORT(Data.portmotor,1);
-		Tool.wait(500);
+		Tool.wait(1000);
 		while(new Date().getTime()<=endtime) {
 			if(sman.GETADC(Data.adclicht)<512) {
 				counter ++;
-				sman.SETPORT(Data.portmotor, 0);
+				if(counter>=count) sman.SETPORT(Data.portmotor, 0);
+				Tool.wait(1000);
 			}
 			Tool.wait(10);
 		}

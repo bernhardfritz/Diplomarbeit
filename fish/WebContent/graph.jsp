@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<meta http-equiv="refresh" content="60">
 		<title>Graph</title>
 		<%
 			if(session.getAttribute("login")==null||session.getAttribute("login").equals(false)) response.sendRedirect("login.jsp");

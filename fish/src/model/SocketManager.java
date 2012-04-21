@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import control.Tool;
+
 public class SocketManager {
 	
 	private String ip;
@@ -25,6 +27,7 @@ public class SocketManager {
 	
 	public void init()
 	{
+		Data.logger.info("Socketverbindung wird hergestellt...");
 		try {
 			socket = new Socket(ip,port);
 			printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -34,6 +37,7 @@ public class SocketManager {
 		} catch (IOException e) {
 			Data.logger.error(e.getMessage());
 		}
+		Data.logger.info("Socketverbindung wurde hergestellt!");
 	}
 	
 	public void close()
@@ -46,7 +50,7 @@ public class SocketManager {
 	}
 	
 	public boolean isConnected() {
-		return socket.isConnected();
+		return Tool.ping(Data.netioip);
 	}
 	
     public int GETADC(int adc)

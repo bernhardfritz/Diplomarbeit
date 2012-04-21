@@ -7,7 +7,6 @@ import model.SocketManager;
 
 public class Launcher{
 
-	
 	public static void main(String[] args) {
 		MainThread mainThread=new MainThread();
 		mainThread.start();
@@ -21,7 +20,7 @@ public class Launcher{
 			}
 			if(line.equals("feed")) {
 				SocketManager sman=new SocketManager();
-				Tool.feed(sman);
+				Tool.feed(sman,1);
 				sman.close();
 			}
 		}

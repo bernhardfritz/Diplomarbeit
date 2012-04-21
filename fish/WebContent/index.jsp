@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.io.IOException,java.net.InetAddress,java.net.UnknownHostException, control.Tool"%>
+    pageEncoding="ISO-8859-1" import="java.io.IOException,java.net.InetAddress,java.net.UnknownHostException, control.Tool, model.Data"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="refresh" content="60">
 <title>Home</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <%
@@ -29,9 +30,10 @@
 				<div id="content">
 					<br />
 					<%
+						new Data();
 						if(session.getAttribute("login")!=null&&session.getAttribute("login").equals(true))
 						{
-							boolean status=Tool.ping();
+							boolean status=Tool.ping(Data.netioip);
 							if(status) {
 								out.print("<img src=\"img\\greenlight.png\" width=32 height=32/>");
 								out.print("ONLINE");

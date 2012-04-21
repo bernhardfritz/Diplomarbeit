@@ -11,6 +11,7 @@ public class Feeding {
 	
 	public static void main(String[] args) throws IOException
 	{
+		new Data();
 		boolean isReachable=false;
 		boolean ready=false;
 		boolean feeding=true;
@@ -24,7 +25,7 @@ public class Feeding {
 		{
 			while(!isReachable)
 			{
-				isReachable=Tool.ping();
+				isReachable=Tool.ping(Data.netioip);
 				Tool.wait(5000);
 			}
 			System.out.println("AVR-Net-IO verbunden!");
@@ -42,7 +43,7 @@ public class Feeding {
 					}
 					if(ready)
 					{
-						Tool.feed(sman);
+						Tool.feed(sman,1);
 						previous=current;
 						ready=false;
 					}

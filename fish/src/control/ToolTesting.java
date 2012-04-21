@@ -1,7 +1,13 @@
 package control;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import model.DBManager;
 import model.Data;
@@ -60,7 +66,14 @@ public class ToolTesting {
 		//System.out.println(Data.mailrecipientadress);
 		//System.out.println(Data.mailsenderadress);
 		//new JavaMailThread("asdf","asdf").run();
-		Tool.feed(new SocketManager());
+		//Tool.feed(new SocketManager());
+		/*Properties prop=new Properties();
+		prop.setProperty("asdf", "bla");
+		prop.store(new FileOutputStream(new File("asdf.properties")), "AUTOMATICALLY GENERATED");*/
+		/*while(true) {
+			System.out.println(Tool.pingGoogle());
+		}*/
+		System.out.println(Tool.getFuttereinheiten());
 	}
 
 }

@@ -115,9 +115,13 @@ public class JavaMailThread extends Thread{
     @SuppressWarnings("deprecation")
 	public void run(){
     	new Data();
-    	Data.logger.info("Sending E-Mail to "+Data.mailrecipientadress+" ...");
-    	sendMail(Data.mailsmtphost, Data.mailusername, Data.mailpassword, Data.mailsenderadress, Data.mailrecipientadress, subject, text);
-    	Data.logger.info("E-Mail sent!");
+    	if(Tool.pingGoogle()) {
+    		Data.logger.info("Internetverbindung vorhanden!");
+			Data.logger.info("Sending E-Mail to "+Data.mailrecipientadress+" ...");
+			sendMail(Data.mailsmtphost, Data.mailusername, Data.mailpassword, Data.mailsenderadress, Data.mailrecipientadress, subject, text);
+			Data.logger.info("E-Mail sent!");
+    	}
+    	else Data.logger.info("Internetverbindung nicht vorhanden!");
     	stop();
     }
 }

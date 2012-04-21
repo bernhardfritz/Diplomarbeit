@@ -40,6 +40,7 @@ public class ConfigServlet2 extends HttpServlet {
 		{
 			str[i]=request.getParameter("stunden"+i);
 			str[i]+=request.getParameter("minuten"+i);
+			str[i]+=request.getParameter("einheiten"+i);
 		}
 		DBManager dbman=new DBManager(this);
 		dbman.setConfig(str);

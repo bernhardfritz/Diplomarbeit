@@ -53,8 +53,8 @@ public Connection con;
 			stat.executeUpdate("create table if not exists konfiguration ( id integer primary key autoincrement, string varchar(999) not null);");
 			stat.close();
 			PreparedStatement prep = con.prepareStatement("insert into users (username, password) values (?, ?);");
-			prep.setString(1, "bernhard");
-			prep.setString(2, Tool.md5("1234"));
+			prep.setString(1, "foo");
+			prep.setString(2, Tool.md5("bar"));
 			prep.execute();
 			prep.close();
 		} catch (SQLException e) {
@@ -75,8 +75,8 @@ public Connection con;
 			stat.executeUpdate("create table if not exists konfiguration ( id integer primary key autoincrement, string varchar(999) not null);");
 			stat.close();
 			PreparedStatement prep = con.prepareStatement("insert into users (username, password) values (?, ?);");
-			prep.setString(1, "bernhard");
-			prep.setString(2, Tool.md5("1234"));
+			prep.setString(1, "foo");
+			prep.setString(2, Tool.md5("bar"));
 			prep.execute();
 			prep.close();
 		} catch (SQLException e) {
@@ -271,11 +271,11 @@ public Connection con;
 		} catch (SQLException e) {
 			Data.logger.error(e.getMessage());
 		}
-		int anzahl=string.length()/4;
+		int anzahl=string.length()/6;
 		String ret[]=new String[anzahl];
 		for(int i=0; i<anzahl; i++)
 		{
-			ret[i]=string.substring(i*4,(i+1)*4);
+			ret[i]=string.substring(i*6,(i+1)*6);
 		}
 		return ret;
 	}

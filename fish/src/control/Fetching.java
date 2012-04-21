@@ -1,11 +1,13 @@
 package control;
 
+import model.Data;
 import model.SocketManager;
 
 public class Fetching
 {	
 	public static void main(String[] args)
 	{
+		new Data();
 		boolean run=true;
 		boolean isReachable=false;
 		boolean fetching=true;
@@ -16,7 +18,7 @@ public class Fetching
 		{
 			while(!isReachable)
 			{
-				isReachable=Tool.ping();
+				isReachable=Tool.ping(Data.netioip);
 				Tool.wait(5000);
 			}
 			System.out.println("AVR-Net-IO connected!");

@@ -23,7 +23,7 @@ public class FeedThread extends Thread{
 		}
 		if(token) {
 			Data.logger.info("Fütterung wird durchgeführt...");
-			Tool.feed(sman);
+			Tool.feed(sman,1);
 			Data.logger.info("Fische wurden erfolgreich gefüttert!");
 			token=false;
 		}
