@@ -80,7 +80,7 @@ public class ConfigServlet extends HttpServlet {
 				}
 				res+="</select>Uhr mit \n";
 				res+="<select name=\"einheiten"+i+"\">\n";
-				for(int l=1; l<=24; l++) {
+				for(int l=1; l<=10; l++) {
 					einheiten+=l;
 					if(einheiten.length()==1) {
 						einheiten="0"+l;
@@ -139,7 +139,7 @@ public class ConfigServlet extends HttpServlet {
 				}
 				res+="</select>Uhr mit \n";
 				res+="<select name=\"einheiten"+i+"\">\n";
-				for(int l=1; l<=24; l++) {
+				for(int l=1; l<=10; l++) {
 					einheiten+=l;
 					if(einheiten.length()==1) {
 						einheiten="0"+l;

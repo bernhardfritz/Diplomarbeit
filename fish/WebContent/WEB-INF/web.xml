@@ -199,4 +199,14 @@
     <servlet-name>LuftThermoServlet</servlet-name>
     <url-pattern>/LuftThermoServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SetupServlet</display-name>
+    <servlet-name>SetupServlet</servlet-name>
+    <servlet-class>control.SetupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetupServlet</servlet-name>
+    <url-pattern>/SetupServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

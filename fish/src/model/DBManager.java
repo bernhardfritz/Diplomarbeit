@@ -85,6 +85,24 @@ public Connection con;
 		}
 	}
 	
+	public void setup(String username, String password) {
+		try {
+			Statement stat=con.createStatement();
+			stat.executeUpdate("drop table if exists users;");
+			stat.executeUpdate("create table if not exists users ( id integer primary key autoincrement, username varchar(8) not null, password varchar(32) not null);");
+			stat.close();
+			PreparedStatement prep = con.prepareStatement("insert into users (username, password) values (?, ?);");
+			prep.setString(1, username);
+			prep.setString(2, Tool.md5(password));
+			prep.execute();
+			prep.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			Data.logger.error(e.getMessage());
+		}
+		
+	}
+	
 	public void close()
 	{
 		try {

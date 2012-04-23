@@ -53,6 +53,7 @@
 						</tr>
 						<tr>
 						<td>
+						<center><a href="setup.jsp">Forgot password?</a></center>
 						</td>
 						<td>
 						<center><input type="submit" name="submit" value="Login" /></center>
