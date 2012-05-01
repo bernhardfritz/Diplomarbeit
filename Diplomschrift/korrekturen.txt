@@ -33,6 +33,15 @@ S.3 In der Aufzucht ...
 
 10.2 "Lotverbindungen" fehlt da das ö ?
 
+10.6
+
+  der 1MOhm widerstand ist sicherlich viel zu groß
+  die Zenerdiode braucht einen grösseren Strom
+
+  und die Schaltung geht so +5V --- R -- Zenerdieode -- GND
+  an der Zenerdiode sollte dann die Spannung konstant sein
+  (bei konstantem Strom)
+
 11.5 ich würde "eine Umdrehung/Fütterung" schreiben
 
 Allgemein : AJAX funktioniert, weil im Webbrowser möglich ist Teile einer
