@@ -9,5 +9,26 @@ S.3 In der Aufzucht ...
   Überfüttern ist auch ein Problem, weil das Futter dann nicht gefressen
   wird sondern im Wasser bleibt und die Wasserqualität beeinflußt.
 
+  das selbe im Abstrakt
+
+3.7.1.0 welche Vorteile hat man durch static (ausser dass man kein new hinschreibt)
+
+3.7.1.1 warum braucht es die read,write,... nicht mehr
+
+3.7.3.1 "Erzeugt eine neue Datenbank-Tabelle ..."
+  eine ?
+
+3.7.5 gestoppt oder beendet ?
+
+"Home-Tab  ... bedeutet, dass möglich ist das ..."
+  dass, es möglich ist
+
+"Graph-Tab ... fehlt ein wert, wird interpoliert"
+  rrd interpoliert nicht, weil man dann meinen könnte es funktioniert
+  und wie interpoliert man am Graphende ?
+
+9.2 git wurde von Linus Torvalds für linux entwickelt, github ist jemand anders
+
+9.5.1 "den alten Schlüssel absichern" nicht eher sichern ?
 
 
