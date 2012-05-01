@@ -31,20 +31,6 @@ S.3 In der Aufzucht ...
 
 9.5.1 "den alten Schlüssel absichern" nicht eher sichern ?
 
-10.1 "Der erste Farbstreifen repräsentiert die erste Ziffer einer zweistelligen Zahl; der zweite Farbstreifen repräsentiert die zweite Ziffer einer zweistelligen Zahl. Die zusammengesetzte Zahl wird anschließend mit der Zahl, die durch den dritten Streifen repräsentiert wird, multipliziert."
-
-  der erste ist die erste, der zweite die zweite ziffer
-  der dritte gibt den 10-er exponent an bzw die anzuhängenden nullen
-
-  z.b. braun schwarz rot gold
-  braun 1 scharz 0 rot 2 gold 5%
-  auf smd widerständen steht 102
-
-  d.h. 10 * 10^2 oder 1000
-
-  es gibt widerstände mit 1% toleranz (braun anstatt gold) die haben drei ziffern und der vierte ring
-  ist der exponent.
-
 10.2 "Lotverbindungen" fehlt da das ö ?
 
 11.5 ich würde "eine Umdrehung/Fütterung" schreiben
