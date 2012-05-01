@@ -49,4 +49,7 @@ S.3 In der Aufzucht ...
 
 11.5 ich würde "eine Umdrehung/Fütterung" schreiben
 
+Allgemein : AJAX funktioniert, weil im Webbrowser möglich ist Teile einer
+  dargestellten Seite auszutauschen (Stichwort: Document Object Model)
+  und diese Änderung auch dargestellt wird.
 
