@@ -19,6 +19,7 @@ S.3 In der Aufzucht ...
   eine ?
 
 3.7.5 gestoppt oder beendet ?
+>gestoppt, da der gleiche Thread später wieder gestartet wird<
 
 "Home-Tab  ... bedeutet, dass möglich ist das ..."
   dass, es möglich ist
@@ -26,6 +27,7 @@ S.3 In der Aufzucht ...
 "Graph-Tab ... fehlt ein wert, wird interpoliert"
   rrd interpoliert nicht, weil man dann meinen könnte es funktioniert
   und wie interpoliert man am Graphende ?
+>Wir verwenden JFreeCharts. Zum Interpolieren wird einfach ein Mittelwert gebildet.<
 
 9.2 git wurde von Linus Torvalds für linux entwickelt, github ist jemand anders
 
@@ -37,6 +39,7 @@ S.3 In der Aufzucht ...
 
   der 1MOhm widerstand ist sicherlich viel zu groß
   die Zenerdiode braucht einen grösseren Strom
+>Vielleicht erinnern Sie sich noch, als wir den passenden Widerstand suchten, um möglichst 1V an der Z-Diode zu erreichen haben wir mehrere meiner Widerstände kombiniert, aber wir sind nicht annähernd an 1V herangekommen. Als wir dann die beiden Kabel mit den Händen angegriffen haben und die Spannung erneut messten, ergab die Messung 1,1V. Der Widerstand des Fingers war beinahe exakt 1MOhm. Deshalb haben wir Sie wegen den 1MOhm gefragt.<
 
   und die Schaltung geht so +5V --- R -- Zenerdieode -- GND
   an der Zenerdiode sollte dann die Spannung konstant sein
